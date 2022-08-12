@@ -12,50 +12,26 @@ import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
-import { initializeApp, getApp } from "firebase/app";
+import { getApp } from "firebase/app";
+
 import {
   getAuth,
   PhoneAuthProvider,
   signInWithCredential,
-  initializeAuth,
-  getReactNativePersistence,
+  onAuthStateChanged,
 } from "firebase/auth/react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// Initialize Firebase JS SDK >=9.x.x
-// https://firebase.google.com/docs/web/setup
-try {
-  const app2 = initializeApp({
-    apiKey: "AIzaSyDiOnVYDYGSBGZykHw8E-fP4HILLK5F5bY",
-    authDomain: "chatlink-phone-auth.firebaseapp.com",
-    projectId: "chatlink-phone-auth",
-    storageBucket: "chatlink-phone-auth.appspot.com",
-    messagingSenderId: "250479887666",
-    appId: "1:250479887666:web:8f42ccdc7cac3df264c32b",
-    measurementId: "G-LWXDHS2LNC",
-  });
-
-  initializeAuth(app2, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
-} catch (err) {
-  console.log(err);
-  // ignore app already initialized error in snack
+{
+  /* <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Phone Verification</Text>
+      <Button
+        title="Go to Alias"
+        onPress={() => navigation.navigate("Alias")}
+      />
+    </View> */
 }
 
-// Firebase references
-const app = getApp();
-const auth = getAuth();
-
-// Double-check that we can run the example
-if (!app?.options || Platform.OS === "web") {
-  throw new Error(
-    "This example only works on Android or iOS, and requires a valid Firebase config."
-  );
-}
-
-export default function App({ navigation }) {
+function VerifyPhoneScreen({ navigation }) {
   // Ref or state management hooks
   const recaptchaVerifier = React.useRef(null);
   const [phoneNumber, setPhoneNumber] = React.useState();
@@ -66,8 +42,27 @@ export default function App({ navigation }) {
   const [message, showMessage] = React.useState();
   const attemptInvisibleVerification = false;
 
+  // Firebase references
+
+  const app = getApp();
+  const auth = getAuth();
+
+  // Double-check that we can run the example
+  if (!app?.options || Platform.OS === "web") {
+    throw new Error(
+      "This example only works on Android or iOS, and requires a valid Firebase config."
+    );
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      navigation.navigate("Alias", { user: { phoneNumber: user.phoneNumber } });
+    }
+  });
+
   return (
     <View style={{ padding: 20, marginTop: 50 }}>
+      {/* <Text>{JSON.stringify(auth)}</Text> */}
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={app.options}
@@ -122,11 +117,17 @@ export default function App({ navigation }) {
               verificationCode
             );
             await signInWithCredential(auth, credential);
+
             showMessage({ text: "Phone authentication successful 👍" });
           } catch (err) {
             showMessage({ text: `Error: ${err.message}`, color: "red" });
           }
         }}
+      />
+      <Text>Phone Verification</Text>
+      <Button
+        title="Go to Alias"
+        onPress={() => navigation.navigate("Alias")}
       />
       {message ? (
         <TouchableOpacity
@@ -152,3 +153,5 @@ export default function App({ navigation }) {
     </View>
   );
 }
+
+export default VerifyPhoneScreen;

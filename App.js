@@ -1,22 +1,44 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import firebaseInit from "./firebaseInit";
 
-import PhoneAuth from "./PhoneAuth";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+import VerifyPhoneScreen from "./Screens/newaccount/VerifyPhoneScreen";
+import AliasScreen from "./Screens/newaccount/AliasScreen";
+import { getAuth } from "firebase/auth/react-native";
+import { View, Text } from "react-native";
+
+const Stack = createNativeStackNavigator();
+
+// Initialize Firebase
+firebaseInit();
+
+const HomeScreen = ({ route }) => {
   return (
-    <View style={styles.container}>
-      <PhoneAuth />
-      <StatusBar style="auto" />
+    <View>
+      <Text>Welcome home</Text>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default function App() {
+  // console.log(auth);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Group
+          screenOptions={{ headerShown: false, presentation: "modal" }}
+        >
+          <Stack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
+          <Stack.Screen name="Alias" component={AliasScreen} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{ headerShown: false, presentation: "modal" }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Group>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
