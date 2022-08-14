@@ -3,6 +3,7 @@ import { Text, View, Button, Alert, TextInput } from "react-native";
 import { useEffect, useState } from "react";
 import { CommonActions, StackActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 function AliasScreen({ navigation, route }) {
   const [alias, setAlias] = useState("");
@@ -22,8 +23,16 @@ function AliasScreen({ navigation, route }) {
       <TextInput autoFocus onChangeText={(alias) => setAlias(alias)} />
       <Button
         title="Submit"
-        onPress={() => {
+        onPress={async () => {
           AsyncStorage.clear();
+          // try {
+          //   const { data } = await axios.post(
+          //     "http://192.168.1.61:8000/api/createUser",
+          //     { alias, phoneNumber }
+          //   );
+          // } catch (error) {
+          //   console.log(error);
+          // }
         }}
       />
     </View>

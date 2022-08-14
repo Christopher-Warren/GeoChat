@@ -20,23 +20,14 @@ import {
   signInWithCredential,
   onAuthStateChanged,
 } from "firebase/auth/react-native";
-
-{
-  /* <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Phone Verification</Text>
-      <Button
-        title="Go to Alias"
-        onPress={() => navigation.navigate("Alias")}
-      />
-    </View> */
-}
+import axios from "axios";
 
 function VerifyPhoneScreen({ navigation }) {
   // Ref or state management hooks
   const recaptchaVerifier = React.useRef(null);
-  const [phoneNumber, setPhoneNumber] = React.useState();
+  const [phoneNumber, setPhoneNumber] = React.useState("+1 650-555-1234");
   const [verificationId, setVerificationId] = React.useState();
-  const [verificationCode, setVerificationCode] = React.useState();
+  const [verificationCode, setVerificationCode] = React.useState("123456");
 
   const firebaseConfig = app ? app.options : undefined;
   const [message, showMessage] = React.useState();
@@ -54,19 +45,12 @@ function VerifyPhoneScreen({ navigation }) {
     );
   }
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      navigation.navigate("Alias", { user: { phoneNumber: user.phoneNumber } });
-    }
-  });
-
   return (
     <View style={{ padding: 20, marginTop: 50 }}>
-      {/* <Text>{JSON.stringify(auth)}</Text> */}
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={app.options}
-        // attemptInvisibleVerification
+        attemptInvisibleVerification
       />
       <Text style={{ marginTop: 20 }}>Enter phone number</Text>
       <TextInput
@@ -76,6 +60,7 @@ function VerifyPhoneScreen({ navigation }) {
         autoCompleteType="tel"
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
+        value={phoneNumber}
         onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
       />
       <Button
@@ -105,6 +90,7 @@ function VerifyPhoneScreen({ navigation }) {
         style={{ marginVertical: 10, fontSize: 17 }}
         editable={!!verificationId}
         placeholder="123456"
+        value={verificationCode}
         onChangeText={setVerificationCode}
       />
       <Button
@@ -116,10 +102,21 @@ function VerifyPhoneScreen({ navigation }) {
               verificationId,
               verificationCode
             );
-            await signInWithCredential(auth, credential);
+            const signedIn = await signInWithCredential(auth, credential);
 
-            showMessage({ text: "Phone authentication successful 👍" });
+            const userPhoneNumber = signedIn.user.phoneNumber;
+            const firebaseUid = signedIn.user.uid;
+
+            const createUser = await axios.post(
+              "http://192.168.1.61:8000/api/createUser",
+              { phoneNumber: userPhoneNumber, firebaseUid }
+            );
+
+            // showMessage({ text: "Phone authentication successful 👍" });
           } catch (err) {
+            // Warning: Can't perform a React state update on an unmounted component.
+            // This is a no-op, but it indicates a memory leak in your application.
+            // To fix, cancel all subscriptions and asynchronous tasks in %s.%s, a useEffect cleanup function,
             showMessage({ text: `Error: ${err.message}`, color: "red" });
           }
         }}

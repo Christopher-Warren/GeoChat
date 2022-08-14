@@ -3,41 +3,54 @@ import firebaseInit from "./firebaseInit";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import VerifyPhoneScreen from "./Screens/newaccount/VerifyPhoneScreen";
+import VerifyPhoneScreen from "./Screens/VerifyPhoneScreen";
 import AliasScreen from "./Screens/newaccount/AliasScreen";
-import { getAuth } from "firebase/auth/react-native";
-import { View, Text } from "react-native";
+import { getAuth, onAuthStateChanged } from "firebase/auth/react-native";
+import { View, Text, ActivityIndicator } from "react-native";
+import { useState } from "react";
+
+import HomeScreen from "./Screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
 // Initialize Firebase
 firebaseInit();
 
-const HomeScreen = ({ route }) => {
+const LoadingScreen = ({ route }) => {
   return (
-    <View>
-      <Text>Welcome home</Text>
+    <View style={{ height: "100%" }}>
+      <ActivityIndicator
+        size="large"
+        style={{ justifyContent: "center", alignContent: "center", flex: 1 }}
+      />
     </View>
   );
 };
 
 export default function App() {
-  // console.log(auth);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
+  onAuthStateChanged(auth, (currentUser) => {
+    // console.log(user);
+    if (currentUser) {
+      setUser(currentUser);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  });
+
+  if (loading) return <LoadingScreen />;
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Group
-          screenOptions={{ headerShown: false, presentation: "modal" }}
-        >
+        {!user ? (
           <Stack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
-          <Stack.Screen name="Alias" component={AliasScreen} />
-        </Stack.Group>
-
-        <Stack.Group
-          screenOptions={{ headerShown: false, presentation: "modal" }}
-        >
+        ) : (
           <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Group>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
