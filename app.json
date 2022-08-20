@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "AwesomeProject2",
-    "slug": "AwesomeProject2",
-    "version": "1.0.0",
+    "name": "Anonychat",
+    "slug": "anony-chat",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,13 +16,15 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.almith.anonychat"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.almith.anonychat"
     },
     "web": {
       "favicon": "./assets/favicon.png"

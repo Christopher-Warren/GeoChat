@@ -9,6 +9,8 @@ import { useLocation } from "../hooks/useLocation";
 const HomeScreen = ({ route }) => {
   const auth = getAuth();
 
+  const [localUsers, setLocalUsers] = useState([]);
+
   const location = useLocation();
 
   const pollLocation = async (auth, location) => {
@@ -29,7 +31,7 @@ const HomeScreen = ({ route }) => {
         { uid, location: geoJSON }
       );
     } catch (error) {
-      console.log(error);
+      console.log("location poll", error);
     }
   };
   pollLocation(auth, location);
@@ -52,19 +54,23 @@ const HomeScreen = ({ route }) => {
         "http://192.168.1.61:8000/api/getLocalUsers",
         { location: geoJSON }
       );
+      if (data)
+        setLocalUsers(
+          data.usersNearBy.filter((user) => user.firebaseUid !== uid)
+        );
 
-      console.log(data);
+      // if (data) setLocalUsers(data.usersNearBy);
     } catch (error) {
-      console.log(error);
+      console.log("localusers", error);
     }
   };
   getLocalUsers(location);
 
   return (
     <View>
-      <Text>HOME</Text>
-      <Text>Lon: {location && location.coords.longitude}</Text>
-      <Text>Lat: {location && location.coords.latitude}</Text>
+      {localUsers.map((user) => {
+        return <Button title={user._id} key={user._id} />;
+      })}
 
       <Button
         title="Clear storage"

@@ -10,6 +10,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { useState } from "react";
 
 import HomeScreen from "./Screens/HomeScreen";
+import axios from "axios";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,10 +32,16 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
-  onAuthStateChanged(auth, (currentUser) => {
+  onAuthStateChanged(auth, async (currentUser) => {
     // console.log(user);
     if (currentUser) {
-      setUser(currentUser);
+      const verifiedUser = await axios.post("/api/verifyUid", {
+        firebaseUid: currentUser.uid,
+        phoneNumber: currentUser.phoneNumber,
+      });
+      setUser(verifiedUser);
+      // ping server to find current user
+      // as user with a uid is an authenticated user
       setLoading(false);
     } else {
       setLoading(false);

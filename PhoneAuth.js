@@ -84,7 +84,7 @@ export default function App({ navigation }) {
         onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
       />
       <Button
-        title="Send Verification Code"
+        title="Send Verification Code, bro"
         disabled={!phoneNumber}
         onPress={async () => {
           // The FirebaseRecaptchaVerifierModal ref implements the
@@ -122,6 +122,9 @@ export default function App({ navigation }) {
               verificationCode
             );
             await signInWithCredential(auth, credential);
+
+            console.log(auth, credential);
+
             showMessage({ text: "Phone authentication successful 👍" });
           } catch (err) {
             showMessage({ text: `Error: ${err.message}`, color: "red" });
