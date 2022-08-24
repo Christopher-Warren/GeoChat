@@ -107,11 +107,6 @@ function VerifyPhoneScreen({ navigation }) {
             const userPhoneNumber = signedIn.user.phoneNumber;
             const firebaseUid = signedIn.user.uid;
 
-            const createUser = await axios.post(
-              "http://192.168.1.61:8000/api/createUser",
-              { phoneNumber: userPhoneNumber, firebaseUid }
-            );
-
             // showMessage({ text: "Phone authentication successful 👍" });
           } catch (err) {
             // Warning: Can't perform a React state update on an unmounted component.

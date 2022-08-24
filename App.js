@@ -34,14 +34,21 @@ export default function App() {
   const auth = getAuth();
   onAuthStateChanged(auth, async (currentUser) => {
     // console.log(user);
-    if (currentUser) {
-      const verifiedUser = await axios.post("/api/verifyUid", {
-        firebaseUid: currentUser.uid,
-        phoneNumber: currentUser.phoneNumber,
-      });
-      setUser(verifiedUser);
-      // ping server to find current user
-      // as user with a uid is an authenticated user
+    if (currentUser && !user) {
+      try {
+        const { data } = await axios.post(
+          "http://192.168.1.61:8000/api/verifyUid",
+          {
+            firebaseUid: currentUser.uid,
+            phoneNumber: currentUser.phoneNumber,
+          }
+        );
+        console.log("onAuthStateChanged");
+        setUser(data);
+      } catch (error) {
+        console.log("ERR", error);
+      }
+
       setLoading(false);
     } else {
       setLoading(false);
@@ -54,9 +61,17 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {!user ? (
-          <Stack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
+          <Stack.Screen
+            name="VerifyPhone"
+            options={{ headerShown: false }}
+            component={VerifyPhoneScreen}
+          />
         ) : (
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={HomeScreen}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>

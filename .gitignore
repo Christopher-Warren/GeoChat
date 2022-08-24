@@ -15,3 +15,7 @@ web-build/
 
 # publish keys
 _publish
+
+# dev
+dev
+assets/icons
