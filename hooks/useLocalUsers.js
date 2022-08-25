@@ -21,10 +21,12 @@ export const useLocalUsers = () => {
 
     (async () => {
       setLoading(true);
-      const { data } = await axios.post(
-        "http://192.168.1.61:8000/api/getLocalUsers",
-        { location: geoJSON, userId: "62f81cdf38105464afc49014" }
-      );
+      const { data, request } = await axios.post("/api/getLocalUsers", {
+        location: geoJSON,
+        userId: "62f81cdf38105464afc49014",
+      });
+
+      console.log(request._url);
 
       const newUsers = data.usersNearBy;
 

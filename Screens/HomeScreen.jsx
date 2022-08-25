@@ -29,7 +29,7 @@ const HomeScreen = ({ route }) => {
   //   try {
   //     // change uid to mongo user id
   //     const { data } = await axios.post(
-  //       "http://192.168.1.61:8000/api/pollLocation",
+  //       "/api/pollLocation",
   //       {
   //         uid,
   //         location: geoJSON,
@@ -55,10 +55,9 @@ const HomeScreen = ({ route }) => {
     };
 
     try {
-      const { data } = await axios.post(
-        "http://192.168.1.61:8000/api/getLocalUsers",
-        { location: geoJSON }
-      );
+      const { data } = await axios.post("/api/getLocalUsers", {
+        location: geoJSON,
+      });
 
       console.log(data.usersNearBy.length);
 

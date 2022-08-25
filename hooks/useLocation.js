@@ -1,9 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import * as Location from "expo-location";
+import { UserContext } from "../contexts/UserProvider";
 
 export function useLocation() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const user = useContext(UserContext);
 
   useEffect(() => {
     let subscribe;

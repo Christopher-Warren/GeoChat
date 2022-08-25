@@ -11,27 +11,16 @@ import { createContext, useContext, useState } from "react";
 
 import HomeScreen from "./Screens/HomeScreen";
 import axios from "axios";
-import {
-  UserContext,
-  UserDispatchContext,
-  UserProvider,
-} from "./contexts/UserProvider";
+import { UserProvider } from "./contexts/UserProvider";
 
 const Stack = createNativeStackNavigator();
 
+// Initialize Axios
+if (__DEV__) axios.defaults.baseURL = "http://192.168.1.61:8000";
+if (!__DEV__) axios.defaults.baseURL = "http://192.168.1.61:8000";
+
 // Initialize Firebase
 firebaseInit();
-
-const LoadingScreen = ({ route }) => {
-  return (
-    <View style={{ height: "100%" }}>
-      <ActivityIndicator
-        size="large"
-        style={{ justifyContent: "center", alignContent: "center", flex: 1 }}
-      />
-    </View>
-  );
-};
 
 export default function App() {
   return (
