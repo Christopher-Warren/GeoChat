@@ -1,45 +1,44 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { getAuth } from "firebase/auth/react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Button, StyleSheet, StatusBar } from "react-native";
 import LocalUsers from "../components/LocalUsers";
+import { UserContext } from "../contexts/UserProvider";
 
 import { useLocation } from "../hooks/useLocation";
+import VerifyPhoneScreen from "./VerifyPhoneScreen";
 
 const HomeScreen = ({ route }) => {
-  console.log(route);
-  const auth = getAuth();
-
-  const [localUsers, setLocalUsers] = useState([]);
+  const user = useContext(UserContext);
 
   // const location = useLocation();
 
-  const pollLocation = async (auth, location) => {
-    if (!location || !auth) return;
-    const uid = auth.currentUser.uid;
-    const coords = location.coords;
+  // const pollLocation = async (auth, location) => {
+  //   if (!location || !auth) return;
+  //   const uid = auth.currentUser.uid;
+  //   const coords = location.coords;
 
-    const coordinates = [coords.longitude, coords.latitude];
+  //   const coordinates = [coords.longitude, coords.latitude];
 
-    const geoJSON = {
-      type: "Point",
-      coordinates,
-    };
+  //   const geoJSON = {
+  //     type: "Point",
+  //     coordinates,
+  //   };
 
-    try {
-      // change uid to mongo user id
-      const { data } = await axios.post(
-        "http://192.168.1.61:8000/api/pollLocation",
-        {
-          uid,
-          location: geoJSON,
-        }
-      );
-    } catch (error) {
-      console.log("location poll", error);
-    }
-  };
+  //   try {
+  //     // change uid to mongo user id
+  //     const { data } = await axios.post(
+  //       "http://192.168.1.61:8000/api/pollLocation",
+  //       {
+  //         uid,
+  //         location: geoJSON,
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.log("location poll", error);
+  //   }
+  // };
   // pollLocation(auth, location);
 
   const getLocalUsers = async (location) => {
@@ -72,6 +71,8 @@ const HomeScreen = ({ route }) => {
     }
   };
   // getLocalUsers(location);
+
+  if (!user) return <VerifyPhoneScreen />;
 
   return (
     <View style={styles.container}>

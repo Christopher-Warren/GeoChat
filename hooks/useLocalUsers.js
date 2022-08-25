@@ -13,23 +13,20 @@ export const useLocalUsers = () => {
     if (!location) {
       return;
     }
-    const coords = location.coords;
-
-    const coordinates = [coords.longitude, coords.latitude];
 
     const geoJSON = {
       type: "Point",
-      coordinates,
+      coordinates: [location.coords.longitude, location.coords.latitude],
     };
 
     (async () => {
       setLoading(true);
       const { data } = await axios.post(
         "http://192.168.1.61:8000/api/getLocalUsers",
-        { location: geoJSON }
+        { location: geoJSON, userId: "62f81cdf38105464afc49014" }
       );
 
-      const newUsers = data.usersNearBy.sort((a, b) => a._id > b._id);
+      const newUsers = data.usersNearBy;
 
       if (data.usersNearBy) setLoading(false);
 
