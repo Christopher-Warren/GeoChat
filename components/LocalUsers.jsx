@@ -1,3 +1,4 @@
+import { useRef, useState, useMemo } from "react";
 import {
   View,
   Text,
@@ -11,101 +12,35 @@ import {
 } from "react-native";
 
 import { useLocalUsers } from "../hooks/useLocalUsers";
+import { useLocation } from "../hooks/useLocation";
+import RenderLocalUsers from "./flatlist/RenderLocalUsers";
 
 const LocalUsers = () => {
-  const { localUsers, loading } = useLocalUsers();
-
-  let dummyUsers = [];
-
-  for (let i = 100; i < 200; i++) {
-    dummyUsers.push({ _id: i });
-  }
-
-  // implement load more
-
-  // blue gradient
-  // #4053F5
-  // #4471E8
-
-  // pink
-  // #FC76E6
-
-  const renderItem = ({ item }) => {
-    return (
-      <Pressable
-        key={item._id}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? "#381B58" : "#281B54",
-          },
-          styles.cardContainer,
-        ]}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          {/* <SvgUri
-            uri={`https://avatars.dicebear.com/api/bottts/:${item._id.slice(
-              (0, -4)
-            )}.svg`}
-            style={{
-              backgroundColor: "#4471E8",
-              width: 32,
-              height: 32,
-              marginRight: 15,
-              borderRadius: 8,
-            }}
-          ></SvgUri> */}
-          <View
-            style={{
-              backgroundColor: "#DDFFF7",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 46,
-              height: 46,
-              marginRight: 15,
-              borderRadius: 8,
-            }}
-          >
-            <Image
-              style={styles.image}
-              source={{
-                uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png`,
-              }}
-            ></Image>
-          </View>
-
-          <View>
-            <Text style={styles.topLeftText}>User</Text>
-            <Text style={styles.bottomLeftText}>{item._id.slice((0, -4))}</Text>
-          </View>
-        </View>
-
-        <View>
-          <Text style={styles.topLeftText}>Status</Text>
-          <Text style={styles.bottomLeftText}>Wants to chat!</Text>
-        </View>
-      </Pressable>
-    );
-  };
+  const location = useLocation();
 
   return (
     <SafeAreaView>
-      {loading && <ActivityIndicator />}
-      <Text style={{ color: "white", textAlign: "center" }}>
+      {console.log("Render")}
+      {/* {loading && <ActivityIndicator />} */}
+      {/* <Text style={{ color: "white", textAlign: "center" }}>
         Total Users: {localUsers.length}
-      </Text>
-      <FlatList
+      </Text> */}
+
+      {/* renderItem={({ item, index }) => (
+          <RenderLocalUsers index={index} item={item} />
+        )} */}
+
+      {/* <FlatList
         contentContainerStyle={{ paddingBottom: 45 }}
         data={localUsers}
-        renderItem={renderItem}
+        renderItem={RenderLocalUsers}
         keyExtractor={(item) => item._id}
-      >
-        <Button title="change something" />
-      </FlatList>
+        refreshing={refreshing}
+        onRefresh={() => {
+          console.log("REFRESHING");
+          setRefreshing(true);
+        }}
+      ></FlatList> */}
     </SafeAreaView>
   );
 };

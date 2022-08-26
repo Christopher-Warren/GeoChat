@@ -14,6 +14,8 @@ const HomeScreen = ({ route }) => {
 
   // const location = useLocation();
 
+  // const location = useLocation();
+
   // const pollLocation = async (auth, location) => {
   //   if (!location || !auth) return;
   //   const uid = auth.currentUser.uid;

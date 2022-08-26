@@ -1,48 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "./useLocation";
 
 import axios from "axios";
 
+import { useQueryClient, useQuery, useMutation } from "react-query";
+
 export const useLocalUsers = () => {
-  const location = useLocation();
+  const queryClient = useQueryClient();
 
-  const [localUsers, setLocalUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
+  const { data, isLoading } = useQuery(["localUsers"], async () => {
     if (!location) {
-      return;
+      throw new Error("Location not provided");
     }
-
     const geoJSON = {
       type: "Point",
       coordinates: [location.coords.longitude, location.coords.latitude],
     };
 
-    (async () => {
-      setLoading(true);
-      const { data, request } = await axios.post("/api/getLocalUsers", {
-        location: geoJSON,
-        userId: "62f81cdf38105464afc49014",
-      });
+    const { data, request } = await axios.post("/api/getLocalUsers", {
+      location: geoJSON,
+      userId: "62f81cdf38105464afc49014",
+    });
+    return data;
+  });
+  // console.log("uselocalusers: ", data);
 
-      console.log(request._url);
-
-      const newUsers = data.usersNearBy;
-
-      if (data.usersNearBy) setLoading(false);
-
-      if (localUsers.length === newUsers.length) {
-        const usersSame = localUsers.every((v, i) => v._id === newUsers[i]._id);
-        if (!usersSame) {
-          setLocalUsers(newUsers);
-        }
-      } else {
-        {
-          setLocalUsers(newUsers);
-        }
-      }
-    })();
-  }, [location]);
-  return { localUsers, loading };
+  return { data };
 };
