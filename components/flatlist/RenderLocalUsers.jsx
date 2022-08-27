@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-export default RenderLocalUsers = ({ item, index }) => {
-  console.log("Render Item: ", index);
-
+export const RenderLocalUsers = ({ item, index }) => {
   return (
     <Pressable
       key={item._id}
@@ -30,18 +28,6 @@ export default RenderLocalUsers = ({ item, index }) => {
           alignItems: "center",
         }}
       >
-        {/* <SvgUri
-            uri={`https://avatars.dicebear.com/api/bottts/:${item._id.slice(
-              (0, -4)
-            )}.svg`}
-            style={{
-              backgroundColor: "#4471E8",
-              width: 32,
-              height: 32,
-              marginRight: 15,
-              borderRadius: 8,
-            }}
-          ></SvgUri> */}
         <View
           style={{
             backgroundColor: "#DDFFF7",

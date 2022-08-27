@@ -1,29 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "./useLocation";
 
 import axios from "axios";
 
 import { useQueryClient, useQuery, useMutation } from "react-query";
+import { UserContext } from "../contexts/UserProvider";
 
 export const useLocalUsers = () => {
-  const queryClient = useQueryClient();
+  const user = useContext(UserContext);
 
-  const { data, isLoading } = useQuery(["localUsers"], async () => {
-    if (!location) {
-      throw new Error("Location not provided");
+  const { data, isLoading, refetch, isRefetching } = useQuery(
+    ["localUsers"],
+    async () => {
+      const { data, request } = await axios.post("/api/getLocalUsers", {
+        userId: user._id,
+      });
+      return data;
     }
-    const geoJSON = {
-      type: "Point",
-      coordinates: [location.coords.longitude, location.coords.latitude],
-    };
+  );
 
-    const { data, request } = await axios.post("/api/getLocalUsers", {
-      location: geoJSON,
-      userId: "62f81cdf38105464afc49014",
-    });
-    return data;
-  });
-  // console.log("uselocalusers: ", data);
-
-  return { data };
+  return { data, refetch, isRefetching };
 };

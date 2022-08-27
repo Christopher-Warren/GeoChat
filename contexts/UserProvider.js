@@ -25,7 +25,6 @@ function UserProvider({ children }) {
           },
           { timeout: 2000 }
         );
-
         setUser(data.user);
         setLoading(false);
       } catch (error) {
@@ -34,7 +33,7 @@ function UserProvider({ children }) {
       }
     }
   });
-
+  //
   return (
     <UserContext.Provider value={user}>
       <UserDispatchContext.Provider value={setUser}>

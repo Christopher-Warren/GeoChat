@@ -24,8 +24,6 @@ export const useLocation = () => {
             coordinates: [location.coords.longitude, location.coords.latitude],
           };
 
-          console.log("..fetching ");
-
           try {
             await axios.post("/api/pollLocation", {
               location: geoJSON,
@@ -38,13 +36,11 @@ export const useLocation = () => {
       );
     })();
 
-    console.log(errorMsg);
-
     return () => {
       if (!subscribe) return;
       subscribe.remove();
     };
   }, []);
 
-  return errorMsg;
+  return { errorMsg };
 };
