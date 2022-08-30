@@ -12,6 +12,22 @@ import {
 } from "react-native";
 
 export const RenderLocalUsers = ({ item, index }) => {
+  // if (index === 0) console.log(item);
+
+  const RenderStatus = () => {
+    if (!item.pendingConnection) {
+      return "none";
+    }
+    if (item._id === item.pendingConnection.userOne.user) {
+      return "wants t9 chat";
+    }
+    if (item._id === item.pendingConnection.userTwo.user) {
+      return "requeet sent";
+    }
+  };
+
+  console.log(item);
+
   return (
     <Pressable
       key={item._id}
@@ -30,7 +46,7 @@ export const RenderLocalUsers = ({ item, index }) => {
       >
         <View
           style={{
-            backgroundColor: "#DDFFF7",
+            backgroundColor: "white",
             alignItems: "center",
             justifyContent: "center",
             width: 46,
@@ -42,20 +58,22 @@ export const RenderLocalUsers = ({ item, index }) => {
           <Image
             style={styles.image}
             source={{
-              uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png`,
+              uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
             }}
           ></Image>
         </View>
 
         <View>
           <Text style={styles.topLeftText}>User</Text>
-          <Text style={styles.bottomLeftText}>{item._id.slice((0, -4))}</Text>
+          <Text style={styles.bottomLeftText}>{item.alias}</Text>
         </View>
       </View>
 
       <View>
-        <Text style={styles.topLeftText}>Status</Text>
-        <Text style={styles.bottomLeftText}>Wants to chat!</Text>
+        <Text style={styles.topLeftText}>Status {index}</Text>
+        <Text style={styles.bottomLeftText}>
+          <RenderStatus />
+        </Text>
       </View>
     </Pressable>
   );

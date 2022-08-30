@@ -17,7 +17,23 @@ import { RenderLocalUsers } from "./flatlist/RenderLocalUsers";
 
 const LocalUsers = () => {
   const { errorMsg } = useLocation();
-  const { data, isRefetching, refetch } = useLocalUsers();
+  const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
+    useLocalUsers();
+
+  if (data) {
+    return (
+      <FlatList
+        contentContainerStyle={{ paddingBottom: 45 }}
+        data={data.pages.flat()}
+        renderItem={RenderLocalUsers}
+        keyExtractor={(item) => item._id + Math.random().toString()}
+        refreshing={isRefetching}
+        onRefresh={refetch}
+        onEndReached={(e) => fetchNextPage()}
+        ListFooterComponent={!hasNextPage && <Text>No mo</Text>}
+      />
+    );
+  }
 
   return (
     <SafeAreaView>
@@ -25,15 +41,6 @@ const LocalUsers = () => {
       {/* <Text style={{ color: "white", textAlign: "center" }}>
         Total Users: {localUsers.length}
       </Text> */}
-
-      <FlatList
-        contentContainerStyle={{ paddingBottom: 45 }}
-        data={data}
-        renderItem={RenderLocalUsers}
-        keyExtractor={(item) => item._id}
-        refreshing={isRefetching}
-        onRefresh={refetch}
-      ></FlatList>
     </SafeAreaView>
   );
 };
