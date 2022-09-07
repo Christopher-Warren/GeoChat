@@ -12,8 +12,6 @@ import {
 } from "react-native";
 
 export const RenderLocalUsers = ({ item, index }) => {
-  // if (index === 0) console.log(item);
-
   const RenderStatus = () => {
     if (!item.pendingConnection) {
       return "none";
@@ -25,8 +23,6 @@ export const RenderLocalUsers = ({ item, index }) => {
       return "requeet sent";
     }
   };
-
-  console.log(item);
 
   return (
     <Pressable

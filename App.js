@@ -11,8 +11,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const Stack = createNativeStackNavigator();
 
 // Initialize Axios
-if (__DEV__) axios.defaults.baseURL = "http://192.168.1.61:8000";
-if (!__DEV__) axios.defaults.baseURL = "http://192.168.1.61:8000";
+if (__DEV__) axios.defaults.baseURL = "http://192.168.0.105:8000";
+if (!__DEV__) axios.defaults.baseURL = "http://192.168.0.105:8000";
 
 // Initialize Firebase
 firebaseInit();

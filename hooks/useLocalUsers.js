@@ -16,7 +16,7 @@ export const useLocalUsers = () => {
   const [page, setPage] = useState(0);
 
   // react query is handling these args
-  const fetchLocalUsers = async ({ pageParam = 0 }) => {
+  const fetchLocalUsers = async ({ pageParam = 1 }) => {
     const { data } = await axios.post("/api/getLocalUsers", {
       userId: user._id,
       page: pageParam,
