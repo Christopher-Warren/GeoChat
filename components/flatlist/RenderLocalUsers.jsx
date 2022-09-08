@@ -48,10 +48,10 @@ export const RenderLocalUsers = ({ item, index }) => {
             backgroundColor: "white",
             alignItems: "center",
             justifyContent: "center",
-            width: 46,
-            height: 46,
+            width: 35,
+            height: 35,
             marginRight: 15,
-            borderRadius: 8,
+            borderRadius: 50,
           }}
         >
           <Image
@@ -59,7 +59,7 @@ export const RenderLocalUsers = ({ item, index }) => {
             source={{
               uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
             }}
-          ></Image>
+          />
         </View>
 
         <View>
@@ -80,8 +80,8 @@ export const RenderLocalUsers = ({ item, index }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    margin: 15,
-    padding: 15,
+    marginVertical: 13,
+    padding: 10,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   bottomLeftText: {
     color: colors.primaryText,
     fontWeight: "bold",
-    fontSize: fontSize.xlarge,
+    fontSize: fontSize.large,
   },
   image: {
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
   },
 });
