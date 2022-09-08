@@ -10,6 +10,7 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+import { colors, fontSize } from "../../styles/styles";
 
 export const RenderLocalUsers = ({ item, index }) => {
   const RenderStatus = () => {
@@ -29,7 +30,9 @@ export const RenderLocalUsers = ({ item, index }) => {
       key={item._id}
       style={({ pressed }) => [
         {
-          backgroundColor: pressed ? "#381B58" : "#281B54",
+          backgroundColor: pressed
+            ? colors.primaryBackgroundPressed
+            : colors.primaryBackground,
         },
         styles.cardContainer,
       ]}
@@ -74,27 +77,24 @@ export const RenderLocalUsers = ({ item, index }) => {
     </Pressable>
   );
 };
+
 const styles = StyleSheet.create({
   cardContainer: {
     margin: 15,
     padding: 15,
-    // backgroundColor: "#281B54",
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   topLeftText: {
-    color: "#897DAA",
-    // fontWeight: "bold",
-    // fontSize: 18,
+    color: colors.secondaryText,
   },
   bottomLeftText: {
-    color: "white",
+    color: colors.primaryText,
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: fontSize.xlarge,
   },
-  userCardPress: {},
   image: {
     height: 40,
     width: 40,

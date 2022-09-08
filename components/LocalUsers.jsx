@@ -45,31 +45,4 @@ const LocalUsers = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  cardContainer: {
-    margin: 15,
-    padding: 15,
-    // backgroundColor: "#281B54",
-    borderRadius: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  topLeftText: {
-    color: "#897DAA",
-    // fontWeight: "bold",
-    // fontSize: 18,
-  },
-  bottomLeftText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  userCardPress: {},
-  image: {
-    height: 40,
-    width: 40,
-  },
-});
-
 export default LocalUsers;
