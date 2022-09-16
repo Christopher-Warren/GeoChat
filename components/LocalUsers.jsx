@@ -35,14 +35,17 @@ const LocalUsers = () => {
     );
   }
 
-  return (
-    <SafeAreaView>
-      {/* {loading && <ActivityIndicator />} */}
-      {/* <Text style={{ color: "white", textAlign: "center" }}>
-        Total Users: {localUsers.length}
-      </Text> */}
-    </SafeAreaView>
-  );
+  return null;
+
+  // return (
+  //   <SafeAreaView>
+  //     {console.log("asd")}
+  //     {/* {loading && <ActivityIndicator />} */}
+  //     {/* <Text style={{ color: "white", textAlign: "center" }}>
+  //       Total Users: {localUsers.length}
+  //     </Text> */}
+  //   </SafeAreaView>
+  // );
 };
 
 export default LocalUsers;
