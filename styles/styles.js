@@ -1,13 +1,12 @@
 export const colors = {
-  themeBackground: "#120041",
+  themeBackground: "#0A0A0A",
   primaryText: "#ffffff",
-  secondaryText: "#897DAA",
-  primaryBackground: "#281B54",
+  secondaryText: "#C2C2C2",
+  primaryBackground: "#2c2c2c",
   primaryBackgroundPressed: "#381B58",
-  blue400: "#6473F7",
-  primaryTheme: "rgba(176, 185, 252, 1)",
-  primaryTheme_60: "rgba(176, 185, 252, .6)",
-  border: "rgba(150, 100, 250, .5)",
+  primaryAccent: "#5EE87E",
+  border: "#2c2c2c",
+  inactiveTab: "#525252",
 };
 
 export const fontSize = {

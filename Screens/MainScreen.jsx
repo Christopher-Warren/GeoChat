@@ -25,7 +25,7 @@ const MainScreen = ({ route }) => {
       ...DefaultTheme.colors,
       background: colors.themeBackground,
       border: colors.border,
-      primary: colors.primaryTheme,
+      primary: colors.primaryAccent,
       text: colors.primaryText,
       card: "red",
     },
@@ -37,28 +37,28 @@ const MainScreen = ({ route }) => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
+            size = 22;
 
             if (route.name === "Home") {
-              iconName = focused ? "home" : "home-outline";
+              iconName = focused ? "home-outline" : "home-outline";
             } else if (route.name === "Users Nearby") {
-              iconName = focused ? "people" : "people-outline";
-            } else if (route.name === "SMS Connections") {
-              iconName = focused ? "flash" : "flash-outline";
+              iconName = focused ? "people-outline" : "people-outline";
+              size += 4;
+            } else if (route.name === "Connections") {
+              iconName = focused ? "flash-outline" : "flash-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarLabelStyle: { fontSize: fontSize.small },
-          tabBarItemStyle: {
-            padding: 3,
-          },
-          tabBarInactiveTintColor: colors.primaryTheme_60,
+          tabBarShowLabel: false,
+          tabBarInactiveTintColor: colors.inactiveTab,
           tabBarBackground: () => (
             <View
               style={{
                 height: "100%",
                 width: "100%",
-                backgroundColor: colors.primaryBackground,
+                backgroundColor: colors.themeBackground,
               }}
             />
           ),
@@ -72,7 +72,7 @@ const MainScreen = ({ route }) => {
           component={LocalUsersTab}
         />
         <Tab.Screen name="Users Nearby" component={LocalUsers} />
-        <Tab.Screen name="SMS Connections" component={LocalUsers} />
+        <Tab.Screen name="Connections" component={LocalUsers} />
       </Tab.Navigator>
     </NavigationContainer>
   );
