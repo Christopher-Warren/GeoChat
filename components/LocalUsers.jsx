@@ -20,32 +20,22 @@ const LocalUsers = () => {
   const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsers();
 
-  if (data) {
-    return (
-      <FlatList
-        contentContainerStyle={{ paddingBottom: 45 }}
-        data={data.pages.flat()}
-        renderItem={RenderLocalUsers}
-        keyExtractor={(item) => item._id + Math.random().toString()}
-        refreshing={isRefetching}
-        onRefresh={refetch}
-        onEndReached={(e) => fetchNextPage()}
-        ListFooterComponent={!hasNextPage && <Text>No mo</Text>}
-      />
-    );
+  if (!data) {
+    return null;
   }
 
-  return null;
-
-  // return (
-  //   <SafeAreaView>
-  //     {console.log("asd")}
-  //     {/* {loading && <ActivityIndicator />} */}
-  //     {/* <Text style={{ color: "white", textAlign: "center" }}>
-  //       Total Users: {localUsers.length}
-  //     </Text> */}
-  //   </SafeAreaView>
-  // );
+  return (
+    <FlatList
+      contentContainerStyle={{ paddingBottom: 45 }}
+      data={data.pages.flat()}
+      renderItem={RenderLocalUsers}
+      keyExtractor={(item) => item._id + Math.random().toString()}
+      refreshing={isRefetching}
+      onRefresh={refetch}
+      onEndReached={(e) => fetchNextPage()}
+      ListFooterComponent={!hasNextPage && <Text>No mo</Text>}
+    />
+  );
 };
 
 export default LocalUsers;
