@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { UserContext } from "../contexts/UserProvider";
 import axios from "axios";

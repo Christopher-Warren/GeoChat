@@ -1,26 +1,20 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import axios from "axios";
-import { getAuth } from "firebase/auth/react-native";
-import { useContext, useState } from "react";
-import { View, Button, StyleSheet, Text, Image } from "react-native";
+import { useContext } from "react";
+import { View } from "react-native";
 import LocalUsers from "../components/LocalUsers";
 import { UserContext } from "../contexts/UserProvider";
 
-import { LinearGradient } from "expo-linear-gradient";
-
-import { useLocation } from "../hooks/useLocation";
 import { colors, fontSize } from "../styles/styles";
 import VerifyPhoneScreen from "./VerifyPhoneScreen";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LocalUsersTab from "../Tabs/LocalUsersTab";
+import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
 
 const Tab = createBottomTabNavigator();
-const HomeScreen = ({ route }) => {
+const MainScreen = ({ route }) => {
   const user = useContext(UserContext);
 
   if (!user) return <VerifyPhoneScreen />;
@@ -45,8 +39,10 @@ const HomeScreen = ({ route }) => {
             let iconName;
 
             if (route.name === "Home") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Users Nearby") {
               iconName = focused ? "people" : "people-outline";
-            } else if (route.name === "Connections") {
+            } else if (route.name === "SMS Connections") {
               iconName = focused ? "flash" : "flash-outline";
             }
 
@@ -75,10 +71,11 @@ const HomeScreen = ({ route }) => {
           name="Home"
           component={LocalUsersTab}
         />
-        <Tab.Screen name="Connections" component={LocalUsers} />
+        <Tab.Screen name="Users Nearby" component={LocalUsers} />
+        <Tab.Screen name="SMS Connections" component={LocalUsers} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
-export default HomeScreen;
+export default MainScreen;

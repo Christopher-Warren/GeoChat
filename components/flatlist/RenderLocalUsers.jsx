@@ -1,15 +1,5 @@
-import React, { useCallback } from "react";
-import {
-  View,
-  Text,
-  Button,
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
-  Image,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { colors, fontSize } from "../../styles/styles";
 
 export const RenderLocalUsers = ({ item, index }) => {

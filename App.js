@@ -3,7 +3,7 @@ import firebaseInit from "./firebaseInit";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import HomeScreen from "./Screens/HomeScreen";
+import MainScreen from "./Screens/MainScreen";
 import axios from "axios";
 import { UserProvider } from "./contexts/UserProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -24,9 +24,9 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
+              name="Main"
               options={{ headerShown: false }}
-              component={HomeScreen}
+              component={MainScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>

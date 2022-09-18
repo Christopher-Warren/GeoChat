@@ -1,15 +1,4 @@
-import { useRef, useState, useMemo } from "react";
-import {
-  View,
-  Text,
-  Button,
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
-  Image,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { Text, FlatList } from "react-native";
 
 import { useLocalUsers } from "../hooks/useLocalUsers";
 import { useLocation } from "../hooks/useLocation";
@@ -33,7 +22,7 @@ const LocalUsers = () => {
       refreshing={isRefetching}
       onRefresh={refetch}
       onEndReached={(e) => fetchNextPage()}
-      ListFooterComponent={!hasNextPage && <Text>No mo</Text>}
+      ListFooterComponent={!hasNextPage && <Text>End of list</Text>}
     />
   );
 };

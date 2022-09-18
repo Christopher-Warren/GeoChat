@@ -18,10 +18,7 @@ import {
   getAuth,
   PhoneAuthProvider,
   signInWithCredential,
-  onAuthStateChanged,
 } from "firebase/auth/react-native";
-import axios from "axios";
-import { UserContext } from "../contexts/UserProvider";
 
 function VerifyPhoneScreen({ navigation }) {
   // Ref or state management hooks

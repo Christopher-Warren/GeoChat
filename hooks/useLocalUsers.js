@@ -1,14 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useLocation } from "./useLocation";
+import { useContext, useState } from "react";
 
 import axios from "axios";
 
-import {
-  useQueryClient,
-  useQuery,
-  useMutation,
-  useInfiniteQuery,
-} from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { UserContext } from "../contexts/UserProvider";
 
 export const useLocalUsers = () => {
