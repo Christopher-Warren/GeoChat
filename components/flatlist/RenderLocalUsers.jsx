@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import { colors, fontSize } from "../../styles/styles";
+import { colors, fontSize, iconSize } from "../../styles/styles";
 
 export const RenderLocalUsers = ({ item, index }) => {
   const RenderStatus = () => {
@@ -35,17 +35,18 @@ export const RenderLocalUsers = ({ item, index }) => {
       >
         <View
           style={{
-            backgroundColor: "white",
             alignItems: "center",
             justifyContent: "center",
             width: 35,
             height: 35,
             marginRight: 15,
-            borderRadius: 50,
           }}
         >
           <Image
-            style={styles.image}
+            style={{
+              height: 50,
+              width: 50,
+            }}
             source={{
               uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
             }}
@@ -84,9 +85,5 @@ const styles = StyleSheet.create({
     color: colors.primaryText,
     fontWeight: "bold",
     fontSize: fontSize.large,
-  },
-  image: {
-    height: 30,
-    width: 30,
   },
 });

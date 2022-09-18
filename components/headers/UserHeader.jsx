@@ -32,7 +32,7 @@ const UserHeader = () => {
         }}
       >
         <Image
-          style={iconSize.medium}
+          style={iconSize.large}
           source={{
             uri: `https://avatars.dicebear.com/api/bottts/:${user._id}.png?primaryColorLevel=700`,
           }}

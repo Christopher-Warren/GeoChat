@@ -18,7 +18,7 @@ export const fontSize = {
 };
 
 export const iconSize = {
-  medium: {
+  large: {
     height: 50,
     width: 50,
   },
