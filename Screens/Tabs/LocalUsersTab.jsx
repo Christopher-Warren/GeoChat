@@ -15,11 +15,11 @@ import { colors } from "../../styles/styles";
           /> */
 }
 const LocalUsersTab = () => {
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
 
   return (
     <ScreenContainer>
-      <StatusBar animated={true} backgroundColor={colors.themeBackground} />
+      {/* <StatusBar animated={true} backgroundColor={colors.themeBackground} /> */}
       <LocalUsers />
     </ScreenContainer>
   );

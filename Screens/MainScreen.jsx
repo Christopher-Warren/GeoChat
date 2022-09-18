@@ -1,6 +1,6 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import LocalUsers from "../components/LocalUsers";
 import { UserContext } from "../contexts/UserProvider";
 
@@ -12,6 +12,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
+import HomeTab from "./Tabs/HomeTab";
+import ConnectionsTab from "./Tabs/ConnectionsTab";
 
 const Tab = createBottomTabNavigator();
 const MainScreen = ({ route }) => {
@@ -31,6 +33,10 @@ const MainScreen = ({ route }) => {
     },
   };
 
+  const Test = () => {
+    return <Text>Test</Text>;
+  };
+
   return (
     <NavigationContainer theme={MyTheme} independent>
       <Tab.Navigator
@@ -41,7 +47,7 @@ const MainScreen = ({ route }) => {
 
             if (route.name === "Home") {
               iconName = focused ? "home-outline" : "home-outline";
-            } else if (route.name === "Users Nearby") {
+            } else if (route.name === "UsersNearby") {
               iconName = focused ? "people-outline" : "people-outline";
               size += 4;
             } else if (route.name === "Connections") {
@@ -65,14 +71,27 @@ const MainScreen = ({ route }) => {
         })}
       >
         <Tab.Screen
+          name="Home"
           options={{
             header: UserHeader,
           }}
-          name="Home"
+          component={HomeTab}
+        />
+        <Tab.Screen
+          name="UsersNearby"
+          options={{
+            header: UserHeader,
+            unmountOnBlur: true,
+          }}
           component={LocalUsersTab}
         />
-        <Tab.Screen name="Users Nearby" component={LocalUsers} />
-        <Tab.Screen name="Connections" component={LocalUsers} />
+        <Tab.Screen
+          name="Connections"
+          options={{
+            header: UserHeader,
+          }}
+          component={ConnectionsTab}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
