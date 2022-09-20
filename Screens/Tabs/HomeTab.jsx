@@ -1,11 +1,10 @@
-import { Text } from "react-native";
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import { Text, View } from "react-native";
 
 const HomeTab = () => {
   return (
-    <ScreenContainer>
+    <View>
       <Text style={{ color: "white" }}>Home Tab!</Text>
-    </ScreenContainer>
+    </View>
   );
 };
 export default HomeTab;

@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 const ConnectionsTab = () => {
   return <Text style={{ color: "white" }}>Connections Tab!</Text>;

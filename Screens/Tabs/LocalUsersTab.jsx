@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { StatusBar } from "react-native";
-import ScreenContainer from "../../components/containers/ScreenContainer";
+
 import LocalUsers from "../../components/LocalUsers";
 import { UserContext } from "../../contexts/UserProvider";
 
@@ -15,14 +14,9 @@ import { colors } from "../../styles/styles";
           /> */
 }
 const LocalUsersTab = () => {
-  // const user = useContext(UserContext);
+  const user = useContext(UserContext);
 
-  return (
-    <ScreenContainer>
-      {/* <StatusBar animated={true} backgroundColor={colors.themeBackground} /> */}
-      <LocalUsers />
-    </ScreenContainer>
-  );
+  return <LocalUsers />;
 };
 
 export default LocalUsersTab;

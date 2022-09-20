@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { Text, View, Image } from "react-native";
 import { UserContext } from "../../contexts/UserProvider";
 import { colors, fontSize, iconSize } from "../../styles/styles";
-import ScreenContainer from "../containers/ScreenContainer";
 
 const UserHeader = () => {
   const user = useContext(UserContext);
 
   return (
-    <ScreenContainer
+    <View
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
+        paddingBottom: 10,
       }}
     >
       <View>
@@ -38,7 +38,7 @@ const UserHeader = () => {
           }}
         />
       </View>
-    </ScreenContainer>
+    </View>
   );
 };
 export default UserHeader;

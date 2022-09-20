@@ -7,6 +7,7 @@ import MainScreen from "./Screens/MainScreen";
 import axios from "axios";
 import { UserProvider } from "./contexts/UserProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const Stack = createNativeStackNavigator();
 // Initialize Axios
@@ -21,15 +22,17 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Main"
-              options={{ headerShown: false }}
-              component={MainScreen}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Main"
+                options={{ headerShown: false }}
+                component={MainScreen}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
       </UserProvider>
     </QueryClientProvider>
   );

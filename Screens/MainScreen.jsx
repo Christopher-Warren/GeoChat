@@ -14,10 +14,14 @@ import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
 import HomeTab from "./Tabs/HomeTab";
 import ConnectionsTab from "./Tabs/ConnectionsTab";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 const Tab = createBottomTabNavigator();
 const MainScreen = ({ route }) => {
   const user = useContext(UserContext);
+
+  const { top } = useSafeAreaInsets();
 
   if (!user) return <VerifyPhoneScreen />;
 
@@ -33,14 +37,13 @@ const MainScreen = ({ route }) => {
     },
   };
 
-  const Test = () => {
-    return <Text>Test</Text>;
-  };
-
   return (
     <NavigationContainer theme={MyTheme} independent>
+      <StatusBar backgroundColor={colors.themeBackground} style="light" />
       <Tab.Navigator
+        sceneContainerStyle={{ paddingTop: top + 5, paddingHorizontal: 15 }}
         screenOptions={({ route }) => ({
+          header: () => <UserHeader />,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             size = 22;
@@ -72,24 +75,13 @@ const MainScreen = ({ route }) => {
       >
         <Tab.Screen
           name="Home"
-          options={{
-            header: UserHeader,
-          }}
+          options={{ unmountOnBlur: true }}
           component={HomeTab}
         />
-        <Tab.Screen
-          name="UsersNearby"
-          options={{
-            header: UserHeader,
-            unmountOnBlur: true,
-          }}
-          component={LocalUsersTab}
-        />
+        <Tab.Screen name="UsersNearby" component={LocalUsersTab} />
         <Tab.Screen
           name="Connections"
-          options={{
-            header: UserHeader,
-          }}
+          options={{ unmountOnBlur: true }}
           component={ConnectionsTab}
         />
       </Tab.Navigator>
