@@ -8,6 +8,7 @@ import axios from "axios";
 import { UserProvider } from "./contexts/UserProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 // Initialize Axios
@@ -19,6 +20,10 @@ firebaseInit();
 const queryClient = new QueryClient();
 
 export default function App() {
+  // const [fontsLoaded] = useFonts({
+  //   roboto: require("./styles/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf"),
+  // });
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>

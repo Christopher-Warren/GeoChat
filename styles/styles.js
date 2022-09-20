@@ -15,6 +15,7 @@ export const fontSize = {
   medium: 14,
   large: 16,
   xlarge: 18,
+  xxlarge: 30,
 };
 
 export const iconSize = {
@@ -22,4 +23,10 @@ export const iconSize = {
     height: 50,
     width: 50,
   },
+};
+
+export const borderRadius = {
+  small: 8,
+  medium: 10,
+  large: 12,
 };

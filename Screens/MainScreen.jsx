@@ -41,7 +41,7 @@ const MainScreen = ({ route }) => {
     <NavigationContainer theme={MyTheme} independent>
       <StatusBar backgroundColor={colors.themeBackground} style="light" />
       <Tab.Navigator
-        sceneContainerStyle={{ paddingTop: top + 5, paddingHorizontal: 15 }}
+        sceneContainerStyle={{ paddingTop: top + 15, paddingHorizontal: 15 }}
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
           tabBarIcon: ({ focused, color, size }) => {

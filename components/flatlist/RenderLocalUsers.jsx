@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import { colors, fontSize, iconSize } from "../../styles/styles";
+import { borderRadius, colors, fontSize, iconSize } from "../../styles/styles";
 
 export const RenderLocalUsers = ({ item, index }) => {
   const RenderStatus = () => {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginVertical: 13,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: borderRadius.medium,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

@@ -11,7 +11,7 @@ const UserHeader = () => {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingBottom: 10,
+        paddingBottom: 30,
       }}
     >
       <View>
