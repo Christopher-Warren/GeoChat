@@ -71,7 +71,7 @@ export const RenderLocalUsers = ({ item, index }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginVertical: 13,
+    marginBottom: 13,
     padding: 10,
     borderRadius: borderRadius.medium,
     flexDirection: "row",

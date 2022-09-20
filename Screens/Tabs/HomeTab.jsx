@@ -1,18 +1,20 @@
-import { Text, View } from "react-native";
+import { Pressable, Text, View, StyleSheet } from "react-native";
 import { borderRadius, colors, fontSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomeTab = () => {
   return (
     <View>
       <View
         style={{
-          borderRadius: borderRadius.medium,
+          borderRadius: borderRadius.xlarge,
           backgroundColor: colors.primaryBackground,
           width: "100%",
-          height: 200,
+
           padding: 20,
+          paddingBottom: 30,
         }}
       >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -30,15 +32,68 @@ const HomeTab = () => {
         <Text
           style={{
             fontSize: fontSize.xxlarge,
-            // fontWeight: "bold",
+            fontWeight: "bold",
             color: colors.primaryText,
-            fontFamily: "roboto",
+            // fontFamily: "roboto",
           }}
         >
           10001
         </Text>
       </View>
+      <LinearGradient
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          borderRadius: borderRadius.xlarge,
+          backgroundColor: "#4053F5",
+          width: "100%",
+          height: 75,
+          padding: 20,
+          marginTop: -20,
+        }}
+        colors={["#4471E8", "#4053F5"]}
+      >
+        <Pressable
+          style={{ flexDirection: "column", alignItems: "center", width: 60 }}
+        >
+          <Ionicons name="add-circle-outline" size={25} color="white" />
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            Top up
+          </Text>
+        </Pressable>
+
+        <View style={styles.verticalLine}></View>
+
+        <Pressable
+          style={{ flexDirection: "column", alignItems: "center", width: 60 }}
+        >
+          <Ionicons name="cash-outline" size={25} color="white" />
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            ADs
+          </Text>
+        </Pressable>
+
+        <View style={styles.verticalLine}></View>
+
+        <Pressable
+          style={{ flexDirection: "column", alignItems: "center", width: 60 }}
+        >
+          <Ionicons name="keypad-outline" size={25} color="white" />
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            Promo
+          </Text>
+        </Pressable>
+      </LinearGradient>
     </View>
   );
 };
 export default HomeTab;
+
+const styles = StyleSheet.create({
+  verticalLine: {
+    width: 1,
+    backgroundColor: "white",
+    height: "100%",
+  },
+});
