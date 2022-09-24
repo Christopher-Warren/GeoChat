@@ -3,6 +3,7 @@ import { borderRadius, colors, fontSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import { RenderLocalUsers } from "../../components/flatlist/RenderLocalUsers";
 
 const HomeTab = () => {
   return (
@@ -85,6 +86,7 @@ const HomeTab = () => {
           </Text>
         </Pressable>
       </LinearGradient>
+      <RenderLocalUsers item={{ alias: 123, _id: 123 }} />
     </View>
   );
 };
@@ -93,7 +95,7 @@ export default HomeTab;
 const styles = StyleSheet.create({
   verticalLine: {
     width: 1,
-    backgroundColor: "white",
+    backgroundColor: "#CDD9F8",
     height: "100%",
   },
 });

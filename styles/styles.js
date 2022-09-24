@@ -3,7 +3,7 @@ export const colors = {
   primaryText: "#ffffff",
   secondaryText: "#C2C2C2",
   primaryBackground: "#2c2c2c",
-  primaryBackgroundPressed: "#381B58",
+  primaryBackgroundPressed: "#474747",
   primaryAccent: "#5EE87E",
   border: "#2c2c2c",
   inactiveTab: "#525252",

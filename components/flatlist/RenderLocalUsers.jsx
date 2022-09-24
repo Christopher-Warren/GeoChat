@@ -1,6 +1,15 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Animated,
+} from "react-native";
 import { borderRadius, colors, fontSize, iconSize } from "../../styles/styles";
+
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const RenderLocalUsers = ({ item, index }) => {
   const RenderStatus = () => {
@@ -15,65 +24,136 @@ export const RenderLocalUsers = ({ item, index }) => {
     }
   };
 
+  const animated = new Animated.Value(1);
+
+  const animated2 = new Animated.Value(0);
+
+  const slideAnim = useRef(new Animated.Value(54)).current;
+
+  const [showSend, setShowSend] = useState(false);
+
+  const fadeIn = () => {
+    Animated.timing(animated, {
+      toValue: 0.4,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOut = () => {
+    Animated.timing(animated, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const slide = () => {
+    if (showSend) {
+      Animated.timing(slideAnim, {
+        toValue: 54,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    setShowSend(!showSend);
+  };
+
   return (
     <Pressable
       key={item._id}
-      style={({ pressed }) => [
-        {
-          backgroundColor: pressed
-            ? colors.primaryBackgroundPressed
-            : colors.primaryBackground,
-        },
-        styles.cardContainer,
-      ]}
+      onPressIn={fadeIn}
+      onPressOut={fadeOut}
+      onPress={slide}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
+      <Animated.View
+        style={[
+          { opacity: animated },
+          styles.cardContainer,
+          { overflow: "hidden" },
+        ]}
       >
         <View
           style={{
+            flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center",
-            width: 35,
-            height: 35,
-            marginRight: 15,
+            padding: 15,
           }}
         >
-          <Image
+          <View
             style={{
-              height: 50,
-              width: 50,
+              alignItems: "center",
+              justifyContent: "center",
+              width: 35,
+              height: 35,
+              marginRight: 15,
             }}
-            source={{
-              uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
-            }}
-          />
+          >
+            <Image
+              style={{
+                height: 50,
+                width: 50,
+              }}
+              source={{
+                uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
+              }}
+            />
+          </View>
+
+          <View>
+            <Text style={styles.topLeftText}>User</Text>
+            <Text style={styles.bottomLeftText}>{item.alias}</Text>
+          </View>
         </View>
 
-        <View>
-          <Text style={styles.topLeftText}>User</Text>
-          <Text style={styles.bottomLeftText}>{item.alias}</Text>
+        <View style={{ display: "none" }}>
+          <Text style={{ textAlign: "right", color: colors.secondaryText }}>
+            Active
+          </Text>
+          <Text style={{ color: colors.primaryText }}>Recently</Text>
         </View>
-      </View>
 
-      <View>
-        <Text style={styles.topLeftText}>Status {index}</Text>
-        <Text style={styles.bottomLeftText}>
-          <RenderStatus />
-        </Text>
-      </View>
+        {/* Send Button */}
+        {/* wigth 0-54 */}
+
+        <Pressable
+          style={{
+            height: "100%",
+          }}
+        >
+          <Animated.View
+            style={[
+              { transform: [{ translateX: slideAnim }] },
+              {
+                height: "100%",
+                width: 54,
+                position: "absolute",
+                right: 0,
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            ]}
+          >
+            <Ionicons name="send-outline" size={25} color="white"></Ionicons>
+          </Animated.View>
+        </Pressable>
+      </Animated.View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginBottom: 13,
-    padding: 10,
-    borderRadius: borderRadius.medium,
+    marginBottom: 20,
+    // padding: 15,
+    borderRadius: borderRadius.xlarge,
+    backgroundColor: colors.primaryBackground,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
