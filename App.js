@@ -12,7 +12,7 @@ import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 // Initialize Axios
-if (__DEV__) axios.defaults.baseURL = "http://192.168.0.105:8000";
+if (__DEV__) axios.defaults.baseURL = "https://chatlink-backend.herokuapp.com/";
 if (!__DEV__) axios.defaults.baseURL = "http://192.168.0.105:8000";
 
 // Initialize Firebase

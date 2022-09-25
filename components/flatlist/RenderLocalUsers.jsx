@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   View,
   Text,
@@ -11,74 +11,87 @@ import { borderRadius, colors, fontSize, iconSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export const RenderLocalUsers = ({ item, index }) => {
-  const RenderStatus = () => {
-    if (!item.pendingConnection) {
-      return "none";
-    }
-    if (item._id === item.pendingConnection.userOne.user) {
-      return "wants t9 chat";
-    }
-    if (item._id === item.pendingConnection.userTwo.user) {
-      return "requeet sent";
-    }
-  };
+export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
+  // const RenderStatus = () => {
+  //   if (!item.pendingConnection) {
+  //     return "none";
+  //   }
+  //   if (item._id === item.pendingConnection.userOne.user) {
+  //     return "wants t9 chat";
+  //   }
+  //   if (item._id === item.pendingConnection.userTwo.user) {
+  //     return "requeet sent";
+  //   }
+  // };
 
-  const animated = new Animated.Value(1);
-
-  const animated2 = new Animated.Value(0);
+  // const animated = new Animated.Value(1);
 
   const slideAnim = useRef(new Animated.Value(54)).current;
 
-  const [showSend, setShowSend] = useState(false);
+  // const [showSend, setShowSend] = useState(false);
 
-  const fadeIn = () => {
-    Animated.timing(animated, {
-      toValue: 0.4,
-      duration: 100,
-      useNativeDriver: true,
-    }).start();
-  };
-  const fadeOut = () => {
-    Animated.timing(animated, {
-      toValue: 1,
+  // const fadeIn = () => {
+  //   Animated.timing(animated, {
+  //     toValue: 0.4,
+  //     duration: 100,
+  //     useNativeDriver: true,
+  //   }).start();
+  // };
+  // const fadeOut = () => {
+  //   Animated.timing(animated, {
+  //     toValue: 1,
+  //     duration: 200,
+  //     useNativeDriver: true,
+  //   }).start();
+  // };
+
+  // const slide = () => {
+  //   if (showSend) {
+  //     Animated.timing(slideAnim, {
+  //       toValue: 54,
+  //       duration: 200,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   } else {
+  //     Animated.timing(slideAnim, {
+  //       toValue: 0,
+  //       duration: 200,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   }
+
+  //   setShowSend(!showSend);
+  // };
+
+  // return (
+  //   <Pressable onPress={press}>
+  //     <View></View>
+  //     <Text style={{ color: color }}>{item._id}</Text>
+  //   </Pressable>
+  // );
+
+  if (selectedId === item._id) {
+    Animated.timing(slideAnim, {
+      toValue: 0,
       duration: 200,
       useNativeDriver: true,
     }).start();
-  };
-
-  const slide = () => {
-    if (showSend) {
-      Animated.timing(slideAnim, {
-        toValue: 54,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-
-    setShowSend(!showSend);
-  };
+  } else {
+    Animated.timing(slideAnim, {
+      toValue: 54,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }
 
   return (
     <Pressable
       key={item._id}
-      onPressIn={fadeIn}
-      onPressOut={fadeOut}
-      onPress={slide}
+      onPress={press}
+      // onPressIn={fadeIn}
+      // onPressOut={fadeOut}
     >
-      <Animated.View
-        style={[
-          { opacity: animated },
-          styles.cardContainer,
-          { overflow: "hidden" },
-        ]}
-      >
+      <Animated.View style={[styles.cardContainer, { overflow: "hidden" }]}>
         <View
           style={{
             flexDirection: "row",
@@ -95,7 +108,7 @@ export const RenderLocalUsers = ({ item, index }) => {
               marginRight: 15,
             }}
           >
-            <Image
+            {/* <Image
               style={{
                 height: 50,
                 width: 50,
@@ -103,7 +116,7 @@ export const RenderLocalUsers = ({ item, index }) => {
               source={{
                 uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
               }}
-            />
+            /> */}
           </View>
 
           <View>
@@ -150,10 +163,10 @@ export const RenderLocalUsers = ({ item, index }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
+    backgroundColor: colors.primaryBackground,
     marginBottom: 20,
     // padding: 15,
     borderRadius: borderRadius.xlarge,
-    backgroundColor: colors.primaryBackground,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
