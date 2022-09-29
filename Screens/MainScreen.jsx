@@ -5,7 +5,7 @@ import LocalUsers from "../components/LocalUsers";
 import { UserContext } from "../contexts/UserProvider";
 
 import { colors, fontSize } from "../styles/styles";
-import VerifyPhoneScreen from "./VerifyPhoneScreen";
+import OnboardingScreen from "./OnboardingScreen";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -15,33 +15,22 @@ import UserHeader from "../components/headers/UserHeader";
 import HomeTab from "./Tabs/HomeTab";
 import ConnectionsTab from "./Tabs/ConnectionsTab";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
 
 const Tab = createBottomTabNavigator();
-const MainScreen = ({ route }) => {
+const MainScreen = (props) => {
   const user = useContext(UserContext);
 
   const { top } = useSafeAreaInsets();
 
-  if (!user) return <VerifyPhoneScreen />;
-
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: colors.themeBackground,
-      border: colors.border,
-      primary: colors.primaryAccent,
-      text: colors.primaryText,
-      card: "red",
-    },
-  };
+  return <OnboardingScreen />;
 
   return (
-    <NavigationContainer theme={MyTheme} independent>
-      <StatusBar backgroundColor={colors.themeBackground} style="light" />
+    <NavigationContainer independent>
       <Tab.Navigator
-        sceneContainerStyle={{ paddingTop: top + 15, paddingHorizontal: 15 }}
+        sceneContainerStyle={{
+          paddingTop: top + 15,
+          paddingHorizontal: 15,
+        }}
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
           tabBarIcon: ({ focused, color, size }) => {

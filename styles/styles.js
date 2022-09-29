@@ -9,6 +9,8 @@ export const colors = {
   inactiveTab: "#525252",
 };
 
+// Font: Signika
+
 export const fontSize = {
   xsmall: 10,
   small: 12,

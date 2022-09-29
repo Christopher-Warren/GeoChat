@@ -31,6 +31,8 @@ function UserProvider({ children }) {
         setError("Internal server error, please try again later");
         setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   });
 
@@ -50,7 +52,7 @@ function UserProvider({ children }) {
             />
           </View>
         )}
-        {user && children}
+        {children}
       </UserDispatchContext.Provider>
     </UserContext.Provider>
   );

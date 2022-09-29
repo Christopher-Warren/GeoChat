@@ -1,12 +1,14 @@
 import * as React from "react";
+import { useState } from "react";
+
 import {
-  Text,
   View,
   TextInput,
   Button,
   StyleSheet,
   TouchableOpacity,
   Platform,
+  StatusBar,
 } from "react-native";
 import {
   FirebaseRecaptchaVerifierModal,
@@ -19,6 +21,15 @@ import {
   PhoneAuthProvider,
   signInWithCredential,
 } from "firebase/auth/react-native";
+import { colors } from "../styles/styles";
+import { HeaderText } from "../components/text/TextStyles";
+import DropDownPicker from "react-native-dropdown-picker";
+import { CountryCodes } from "../assets/misc/CountryCodes";
+import { DropDown } from "../components/inputs/DropDown";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SignupScreen } from "./Onboarding/SignupScreen";
+import { VerificationScreen } from "./Onboarding/VerificationScreen";
 
 function VerifyPhoneScreen({ navigation }) {
   // Ref or state management hooks
@@ -43,24 +54,57 @@ function VerifyPhoneScreen({ navigation }) {
     );
   }
 
+  const Stack = createNativeStackNavigator();
+
+  // Additional steps needed when app if used on ios
+  // https://docs.expo.dev/versions/latest/sdk/firebase-recaptcha/#usage
+
   return (
-    <View style={{ padding: 20, marginTop: 50 }}>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, animationTypeForReplace: "push" }}
+      >
+        <Stack.Screen name="SignupScreen" component={SignupScreen} />
+        <Stack.Screen
+          name="VerificationScreen"
+          // options={{ animation: "slide_from_right" }}
+          component={VerificationScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+
+  return (
+    <View style={{ padding: 20 }}>
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={app.options}
         attemptInvisibleVerification
       />
-      <Text style={{ marginTop: 20 }}>Enter phone number</Text>
-      <TextInput
-        style={{ marginVertical: 10, fontSize: 17 }}
-        placeholder="+1 999 999 9999"
-        autoFocus
-        autoCompleteType="tel"
-        keyboardType="phone-pad"
-        textContentType="telephoneNumber"
-        value={phoneNumber}
-        onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-      />
+      <HeaderText
+        style={{ marginTop: 20, color: colors.primaryText, fontSize: 42 }}
+      >
+        What's your phone number?
+      </HeaderText>
+      <View style={{ flexDirection: "row" }}>
+        <Button
+          title="country"
+          onPress={() => navigation.navigate("SelectCountry")}
+        ></Button>
+        <TextInput
+          style={{
+            marginVertical: 10,
+            fontSize: 17,
+            color: colors.primaryText,
+          }}
+          placeholder="+1 999 999 9999"
+          autoCompleteType="tel"
+          keyboardType="phone-pad"
+          textContentType="telephoneNumber"
+          value={phoneNumber}
+          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+        />
+      </View>
       <Button
         title="Send Verification Code"
         disabled={!phoneNumber}
@@ -83,9 +127,12 @@ function VerifyPhoneScreen({ navigation }) {
           }
         }}
       />
-      <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
+
+      <HeaderText style={{ marginTop: 20, color: colors.primaryText }}>
+        Enter Verification code
+      </HeaderText>
       <TextInput
-        style={{ marginVertical: 10, fontSize: 17 }}
+        style={{ marginVertical: 10, fontSize: 17, color: colors.primaryText }}
         editable={!!verificationId}
         placeholder="123456"
         value={verificationCode}
@@ -114,11 +161,10 @@ function VerifyPhoneScreen({ navigation }) {
           }
         }}
       />
-      <Text>Phone Verification</Text>
-      <Button
-        title="Go to Alias"
-        onPress={() => navigation.navigate("Alias")}
-      />
+      <HeaderText style={{ color: colors.primaryText }}>
+        Phone Verification
+      </HeaderText>
+
       {message ? (
         <TouchableOpacity
           style={[
@@ -127,7 +173,7 @@ function VerifyPhoneScreen({ navigation }) {
           ]}
           onPress={() => showMessage(undefined)}
         >
-          <Text
+          <HeaderText
             style={{
               color: message.color || "blue",
               fontSize: 17,
@@ -136,7 +182,7 @@ function VerifyPhoneScreen({ navigation }) {
             }}
           >
             {message.text}
-          </Text>
+          </HeaderText>
         </TouchableOpacity>
       ) : undefined}
       {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}

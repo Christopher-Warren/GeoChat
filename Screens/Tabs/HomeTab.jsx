@@ -13,7 +13,6 @@ const HomeTab = () => {
           borderRadius: borderRadius.xlarge,
           backgroundColor: colors.primaryBackground,
           width: "100%",
-
           padding: 20,
           paddingBottom: 30,
         }}
