@@ -1,7 +1,7 @@
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import { Button, TextInput, View, Modal } from "react-native";
+import { Button, TextInput, View, Modal, Text, Pressable } from "react-native";
 import { HeaderText } from "../../components/text/TextStyles";
-import { colors } from "../../styles/styles";
+import { colors, fontSize } from "../../styles/styles";
 
 import { useEffect, useRef, useState } from "react";
 import { getApp } from "firebase/app";
@@ -10,6 +10,10 @@ import { getAuth, PhoneAuthProvider } from "firebase/auth/react-native";
 import * as Cellular from "expo-cellular";
 import { CountryCodes } from "../../assets/misc/CountryCodes";
 import { ScreenContainer } from "../../components/ScreenContainer";
+import { Loader } from "../../components/loaders/Loader";
+
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { OnboardingHeader } from "../../components/headers/OnboardingHeader";
 
 export const SignupScreen = ({ navigation, route }) => {
   const recaptchaVerifier = useRef(null);
@@ -38,13 +42,13 @@ export const SignupScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     const setMobileCountryCode = async () => {
+      // @TODO: Handle case where there is no found code
       const code = await Cellular.getIsoCountryCodeAsync();
 
       const foundCode = CountryCodes.find(
         (cc) => cc.code === code.toUpperCase()
       );
 
-      console.log(foundCode.dial_code);
       setCountryCode(foundCode);
     };
 
@@ -57,6 +61,12 @@ export const SignupScreen = ({ navigation, route }) => {
     }
   }, [route.params]);
 
+  if (!countryCode) {
+    return <Loader />;
+  }
+
+  const sanitizedPhoneNumber = `${countryCode.dial_code} ${phoneNumber}`;
+
   return (
     <ScreenContainer>
       <FirebaseRecaptchaVerifierModal
@@ -66,35 +76,62 @@ export const SignupScreen = ({ navigation, route }) => {
         firebaseConfig={app.options}
         attemptInvisibleVerification={true}
       />
-      <HeaderText style={{ color: colors.primaryText, fontSize: 42 }}>
+      <OnboardingHeader
+        style={{ marginVertical: 15 }}
+        route={route}
+      ></OnboardingHeader>
+
+      <HeaderText
+        style={{
+          color: colors.primaryText,
+          fontSize: fontSize["3xl"],
+        }}
+      >
         What's your phone number?
       </HeaderText>
       <View style={{ flexDirection: "row" }}>
-        <Button
-          title="country"
+        <Pressable
           onPress={() =>
             navigation.navigate("CountrySelection", { countryCode })
           }
-        />
+          style={{
+            marginVertical: 10,
+            fontSize: fontSize.xxlarge,
+            color: colors.primaryText,
+            borderBottomWidth: 2,
+            alignItems: "center",
+            flexDirection: "row",
+            borderBottomColor: colors.primaryText,
+            paddingVertical: 5,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: fontSize.xxlarge,
+              color: colors.primaryText,
+              paddingTop: 2,
+              borderBottomColor: colors.primaryText,
+            }}
+          >
+            {`${countryCode.flag} ${countryCode.dial_code}`}
+          </Text>
+          <Ionicons
+            name="chevron-down"
+            style={{ marginTop: 7 }}
+            color={"white"}
+          ></Ionicons>
+        </Pressable>
 
         <TextInput
-          editable={false}
           style={{
             marginVertical: 10,
-            fontSize: 17,
+            fontSize: fontSize.xxlarge,
             color: colors.primaryText,
-          }}
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
-          value={countryCode && countryCode.dial_code}
-          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-        />
-        <TextInput
-          style={{
-            marginVertical: 10,
-            fontSize: 17,
-            color: colors.primaryText,
+            borderBottomWidth: 2,
+            borderBottomColor: colors.primaryText,
+            paddingVertical: 5,
+            flex: 1,
+            marginLeft: 15,
           }}
           placeholder="999 999 9999"
           autoCompleteType="tel"
@@ -104,9 +141,14 @@ export const SignupScreen = ({ navigation, route }) => {
           onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
         />
       </View>
-      <Button
-        title="Send Verification Code"
-        disabled={!phoneNumber}
+      {/* <Button title="Send Verification Code" disabled={!phoneNumber} /> */}
+      <Pressable
+        style={{
+          position: "absolute",
+          right: 15,
+          bottom: 15,
+        }}
+        disabled={!sanitizedPhoneNumber}
         onPress={async () => {
           // The FirebaseRecaptchaVerifierModal ref implements the
           // FirebaseAuthApplicationVerifier interface and can be
@@ -115,19 +157,30 @@ export const SignupScreen = ({ navigation, route }) => {
           try {
             const phoneProvider = new PhoneAuthProvider(auth);
             const verificationId = await phoneProvider.verifyPhoneNumber(
-              phoneNumber,
+              sanitizedPhoneNumber,
               recaptchaVerifier.current
             );
 
             navigation.navigate("VerificationScreen", {
               verificationId,
-              phoneNumber,
+              phoneNumber: sanitizedPhoneNumber,
             });
           } catch (err) {
             console.log(err.message);
           }
         }}
-      />
+      >
+        <Ionicons
+          name="arrow-forward"
+          size={fontSize["3xl"]}
+          color={"white"}
+          style={{
+            backgroundColor: colors.primaryBackground,
+            alignSelf: "flex-start",
+            borderRadius: 100,
+          }}
+        />
+      </Pressable>
     </ScreenContainer>
   );
 };
