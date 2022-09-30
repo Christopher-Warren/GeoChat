@@ -1,27 +1,25 @@
-import { getAuth, signInWithCredential } from "firebase/auth/react-native";
+import {
+  getAuth,
+  signInWithCredential,
+  PhoneAuthProvider,
+} from "firebase/auth/react-native";
 import { useState } from "react";
 import { Button, View, TextInput } from "react-native";
+import { ScreenContainer } from "../../components/ScreenContainer";
 
 import { HeaderText } from "../../components/text/TextStyles";
 import { colors } from "../../styles/styles";
 
 export const VerificationScreen = ({
   route: {
-    params: { verificationId, PhoneAuthProvider },
+    params: { verificationId, phoneNumber },
   },
 }) => {
-  //   console.log("navigated", verificationId);
-
-  //   return <HeaderText>ughhhh</HeaderText>;
   const auth = getAuth();
-  const [phoneNumber, setPhoneNumber] = useState("+1 650-555-1234");
-
   const [verificationCode, setVerificationCode] = useState("123456");
 
-  const [message, showMessage] = useState();
-  const attemptInvisibleVerification = false;
   return (
-    <View>
+    <ScreenContainer>
       <HeaderText style={{ marginTop: 20, color: colors.primaryText }}>
         Enter Verification code
       </HeaderText>
@@ -62,6 +60,6 @@ export const VerificationScreen = ({
       <HeaderText style={{ color: colors.primaryText }}>
         Phone Verification
       </HeaderText>
-    </View>
+    </ScreenContainer>
   );
 };

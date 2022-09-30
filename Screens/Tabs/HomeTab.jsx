@@ -4,10 +4,11 @@ import { borderRadius, colors, fontSize } from "../../styles/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
 import { RenderLocalUsers } from "../../components/flatlist/RenderLocalUsers";
+import { ScreenContainer } from "../../components/ScreenContainer";
 
 const HomeTab = () => {
   return (
-    <View>
+    <ScreenContainer>
       <View
         style={{
           borderRadius: borderRadius.xlarge,
@@ -86,7 +87,7 @@ const HomeTab = () => {
         </Pressable>
       </LinearGradient>
       <RenderLocalUsers item={{ alias: 123, _id: 123 }} />
-    </View>
+    </ScreenContainer>
   );
 };
 export default HomeTab;

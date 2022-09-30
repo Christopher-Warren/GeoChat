@@ -1,8 +1,4 @@
 import firebaseInit from "./firebaseInit";
-
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import MainScreen from "./Screens/MainScreen";
 import axios from "axios";
 import { UserProvider } from "./contexts/UserProvider";
@@ -11,9 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { colors } from "./styles/styles";
 import { StatusBar } from "expo-status-bar";
-import { BodyText } from "./components/text/TextStyles";
 
-const Stack = createNativeStackNavigator();
 // Initialize Axios
 if (!__DEV__)
   axios.defaults.baseURL = "https://chatlink-backend.herokuapp.com/";

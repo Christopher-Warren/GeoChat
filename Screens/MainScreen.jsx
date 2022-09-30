@@ -1,11 +1,11 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
-import { Text, View } from "react-native";
-import LocalUsers from "../components/LocalUsers";
+import { View } from "react-native";
+
 import { UserContext } from "../contexts/UserProvider";
 
 import { colors, fontSize } from "../styles/styles";
-import OnboardingScreen from "./OnboardingScreen";
+import OnboardingStack from "./OnboardingStack";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -16,21 +16,19 @@ import HomeTab from "./Tabs/HomeTab";
 import ConnectionsTab from "./Tabs/ConnectionsTab";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { NavTheme } from "../styles/theme";
+
 const Tab = createBottomTabNavigator();
 const MainScreen = (props) => {
   const user = useContext(UserContext);
 
   const { top } = useSafeAreaInsets();
 
-  return <OnboardingScreen />;
+  return <OnboardingStack />;
 
   return (
-    <NavigationContainer independent>
+    <NavigationContainer theme={NavTheme} independent>
       <Tab.Navigator
-        sceneContainerStyle={{
-          paddingTop: top + 15,
-          paddingHorizontal: 15,
-        }}
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
           tabBarIcon: ({ focused, color, size }) => {

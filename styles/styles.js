@@ -1,3 +1,7 @@
+export const layout = {
+  paddingHorizontal: 15,
+};
+
 export const colors = {
   themeBackground: "#0A0A0A",
   primaryText: "#ffffff",
@@ -18,6 +22,7 @@ export const fontSize = {
   large: 16,
   xlarge: 18,
   xxlarge: 30,
+  "3xl": 42,
 };
 
 export const iconSize = {

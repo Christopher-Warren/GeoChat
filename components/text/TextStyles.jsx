@@ -18,8 +18,8 @@ export const BodyText = ({ children, style }) => {
   return (
     <Text
       style={[
-        style,
         { color: colors.primaryText, fontFamily: "signika", fontSize: 16 },
+        style,
       ]}
     >
       {children}
