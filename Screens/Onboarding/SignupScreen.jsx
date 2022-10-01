@@ -24,10 +24,6 @@ export const SignupScreen = ({ navigation, route }) => {
   const [phoneNumber, setPhoneNumber] = useState("650-555-1234");
   const [countryCode, setCountryCode] = useState(null);
 
-  const [verificationId, setVerificationId] = useState();
-
-  const [message, showMessage] = useState();
-
   /* 
   Client crashes on android when react-navigation/router navigates
   from a component that renders a webview
@@ -68,7 +64,7 @@ export const SignupScreen = ({ navigation, route }) => {
   const sanitizedPhoneNumber = `${countryCode.dial_code} ${phoneNumber}`;
 
   return (
-    <ScreenContainer>
+    <ScreenContainer paddingTopEnabled flexEnabled>
       <FirebaseRecaptchaVerifierModal
         appVerificationDisabledForTesting={true}
         ref={recaptchaVerifier}

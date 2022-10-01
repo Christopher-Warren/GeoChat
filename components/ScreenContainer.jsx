@@ -1,20 +1,26 @@
 import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { layout } from "../styles/styles";
 
-export const ScreenContainer = ({ children }) => {
+export const ScreenContainer = ({
+  children,
+  paddingTopEnabled = false,
+  flexEnabled = false,
+}) => {
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: layout.paddingHorizontal,
-          paddingTop: 15,
-          overflow: "visible",
-        }}
-      >
-        {children}
-      </View>
-    </SafeAreaView>
+    <View
+      style={{
+        paddingHorizontal: layout.paddingHorizontal,
+        paddingTop: paddingTopEnabled ? insets.top : 0,
+        overflow: "visible",
+        flex: flexEnabled ? 1 : 0,
+      }}
+    >
+      {children}
+    </View>
   );
 };

@@ -1,20 +1,26 @@
 import { useContext } from "react";
 import { Text, View, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { UserContext } from "../../contexts/UserProvider";
 import { colors, fontSize, iconSize } from "../../styles/styles";
+import { ScreenContainer } from "../ScreenContainer";
 
 const UserHeader = () => {
   const user = useContext(UserContext);
 
+  const insets = useSafeAreaInsets();
+
   // glitchy when navigating
   return (
-    <SafeAreaView>
+    <ScreenContainer paddingTopEnabled>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          paddingBottom: 30,
+          paddingBottom: 15,
         }}
       >
         <View>
@@ -42,7 +48,7 @@ const UserHeader = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 };
 export default UserHeader;

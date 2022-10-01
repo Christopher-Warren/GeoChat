@@ -14,15 +14,12 @@ import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
 import HomeTab from "./Tabs/HomeTab";
 import ConnectionsTab from "./Tabs/ConnectionsTab";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { NavTheme } from "../styles/theme";
 
 const Tab = createBottomTabNavigator();
 const MainScreen = (props) => {
   const user = useContext(UserContext);
-
-  const { top } = useSafeAreaInsets();
 
   if (!user) {
     return <OnboardingStack />;
@@ -33,6 +30,7 @@ const MainScreen = (props) => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
+
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             size = 22;

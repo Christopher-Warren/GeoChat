@@ -29,6 +29,7 @@ export const VerificationScreen = ({
   route: {
     params: { verificationId, phoneNumber },
   },
+  navigation,
 }) => {
   const auth = getAuth();
   const [verificationCode, setVerificationCode] = useState("123456");
@@ -63,7 +64,7 @@ export const VerificationScreen = ({
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer paddingTopEnabled flexEnabled>
       <OnboardingHeader
         style={{ marginVertical: 15 }}
         route={"asd"}
@@ -108,7 +109,7 @@ export const VerificationScreen = ({
           bottom: 20,
         }}
         disabled={!verificationId}
-        onPress={submitVerification}
+        onPress={() => navigation.goBack()}
       >
         <Ionicons
           name="arrow-back"
