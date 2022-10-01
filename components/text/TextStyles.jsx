@@ -5,7 +5,11 @@ export const HeaderText = ({ children, style }) => {
   return (
     <Text
       style={[
-        { color: colors.primaryText, fontFamily: "roboto_slab", fontSize: 16 },
+        {
+          color: colors.primaryText,
+          fontFamily: "roboto_slab",
+          fontSize: 16,
+        },
         style,
       ]}
     >

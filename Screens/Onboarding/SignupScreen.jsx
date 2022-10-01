@@ -85,6 +85,7 @@ export const SignupScreen = ({ navigation, route }) => {
         style={{
           color: colors.primaryText,
           fontSize: fontSize["3xl"],
+          marginVertical: 15,
         }}
       >
         What's your phone number?

@@ -24,9 +24,9 @@ const MainScreen = (props) => {
 
   const { top } = useSafeAreaInsets();
 
-  // if (!user) {
-  return <OnboardingStack />;
-  // }
+  if (!user) {
+    return <OnboardingStack />;
+  }
 
   return (
     <NavigationContainer theme={NavTheme} independent>
