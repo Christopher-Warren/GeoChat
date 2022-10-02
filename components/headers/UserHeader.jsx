@@ -1,19 +1,11 @@
 import { useContext } from "react";
 import { Text, View, Image } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
 import { UserContext } from "../../contexts/UserProvider";
 import { colors, fontSize, iconSize } from "../../styles/styles";
 import { ScreenContainer } from "../ScreenContainer";
 
 const UserHeader = () => {
   const user = useContext(UserContext);
-
-  const insets = useSafeAreaInsets();
-
-  // glitchy when navigating
   return (
     <ScreenContainer paddingTopEnabled>
       <View

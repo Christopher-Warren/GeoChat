@@ -10,8 +10,9 @@ import {
 import { borderRadius, colors, fontSize, iconSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import axios from "axios";
 
-export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
+export const RenderLocalUsers = ({ item, press, selectedId, userId }) => {
   // const RenderStatus = () => {
   //   if (!item.pendingConnection) {
   //     return "none";
@@ -24,44 +25,24 @@ export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
   //   }
   // };
 
-  // const animated = new Animated.Value(1);
+  const animated = new Animated.Value(1);
 
   const slideAnim = useRef(new Animated.Value(54)).current;
 
-  // const [showSend, setShowSend] = useState(false);
-
-  // const fadeIn = () => {
-  //   Animated.timing(animated, {
-  //     toValue: 0.4,
-  //     duration: 100,
-  //     useNativeDriver: true,
-  //   }).start();
-  // };
-  // const fadeOut = () => {
-  //   Animated.timing(animated, {
-  //     toValue: 1,
-  //     duration: 200,
-  //     useNativeDriver: true,
-  //   }).start();
-  // };
-
-  // const slide = () => {
-  //   if (showSend) {
-  //     Animated.timing(slideAnim, {
-  //       toValue: 54,
-  //       duration: 200,
-  //       useNativeDriver: true,
-  //     }).start();
-  //   } else {
-  //     Animated.timing(slideAnim, {
-  //       toValue: 0,
-  //       duration: 200,
-  //       useNativeDriver: true,
-  //     }).start();
-  //   }
-
-  //   setShowSend(!showSend);
-  // };
+  const fadeIn = () => {
+    Animated.timing(animated, {
+      toValue: 0.4,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOut = () => {
+    Animated.timing(animated, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
 
   // return (
   //   <Pressable onPress={press}>
@@ -88,10 +69,16 @@ export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
     <Pressable
       key={item._id}
       onPress={press}
-      // onPressIn={fadeIn}
-      // onPressOut={fadeOut}
+      onPressIn={fadeIn}
+      onPressOut={fadeOut}
     >
-      <Animated.View style={[styles.cardContainer, { overflow: "hidden" }]}>
+      <Animated.View
+        style={[
+          styles.cardContainer,
+
+          { overflow: "hidden", opacity: animated },
+        ]}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -108,7 +95,7 @@ export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
               marginRight: 15,
             }}
           >
-            {/* <Image
+            <Image
               style={{
                 height: 50,
                 width: 50,
@@ -116,7 +103,7 @@ export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
               source={{
                 uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
               }}
-            /> */}
+            />
           </View>
 
           <View>
@@ -132,12 +119,15 @@ export const RenderLocalUsers = ({ item, index, press, color, selectedId }) => {
           <Text style={{ color: colors.primaryText }}>Recently</Text>
         </View>
 
-        {/* Send Button */}
-        {/* wigth 0-54 */}
-
         <Pressable
           style={{
             height: "100%",
+          }}
+          onPress={(e) => {
+            axios.post("/api/requestConnection", {
+              userOne: userId,
+              userTwo: selectedId,
+            });
           }}
         >
           <Animated.View

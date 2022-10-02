@@ -5,13 +5,13 @@ import axios from "axios";
 import { useInfiniteQuery } from "react-query";
 import { UserContext } from "../contexts/UserProvider";
 
-export const useLocalUsers = () => {
+export const useLocalUsersConnections = () => {
   const user = useContext(UserContext);
   const [page, setPage] = useState(0);
 
   // react query is handling these args
   const fetchLocalUsers = async ({ pageParam = 0 }) => {
-    const { data } = await axios.post("/api/getLocalUsers", {
+    const { data } = await axios.post("/api/getLocalUsers/connections", {
       userId: user._id,
       page: pageParam,
     });
@@ -26,7 +26,7 @@ export const useLocalUsers = () => {
   // );
 
   const { data, isLoading, refetch, fetchNextPage, isRefetching, hasNextPage } =
-    useInfiniteQuery([`localUsers`], fetchLocalUsers, {
+    useInfiniteQuery([`localUsersConnections`], fetchLocalUsers, {
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.length < 10) return;
         return pages.length + 1;

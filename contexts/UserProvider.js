@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth/react-native";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 import { Loader } from "../components/loaders/Loader";
@@ -14,27 +14,30 @@ function UserProvider({ children }) {
   const [error, setError] = useState(null);
   const auth = getAuth();
 
-  onAuthStateChanged(auth, async (currentUser) => {
-    if (currentUser && !user && !error) {
-      try {
-        const { data } = await axios.post(
-          "/api/verifyUid",
-          {
-            firebaseUid: currentUser.uid,
-            phoneNumber: currentUser.phoneNumber,
-          },
-          { timeout: 2000 }
-        );
-        setUser(data.user);
-        setLoading(false);
-      } catch (error) {
-        setError("Internal server error, please try again later");
+  useEffect(() => {
+    onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser && !user && loading) {
+        try {
+          const { data } = await axios.post(
+            "/api/verifyUid",
+            {
+              firebaseUid: currentUser.uid,
+              phoneNumber: currentUser.phoneNumber,
+            },
+            { timeout: 2000 }
+          );
+
+          setUser(data.user);
+          setLoading(false);
+        } catch (error) {
+          setError("Internal server error, please try again later");
+          setLoading(false);
+        }
+      } else {
         setLoading(false);
       }
-    } else {
-      setLoading(false);
-    }
-  });
+    });
+  }, []);
 
   return (
     <UserContext.Provider value={user}>
