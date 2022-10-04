@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Text } from "react-native";
+import ConnectionButtons from "../../components/flatlist/ConnectionButtons";
 import LocalUsers from "../../components/LocalUsers";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { UserContext } from "../../contexts/UserProvider";
@@ -22,6 +23,7 @@ const ConnectionsTab = () => {
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       userId={user._id}
+      RightComponent={ConnectionButtons}
     />
   );
 };

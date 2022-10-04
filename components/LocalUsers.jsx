@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, FlatList } from "react-native";
+import { Text, FlatList, Button } from "react-native";
 
 import { layout } from "../styles/styles";
 import { RenderLocalUsers } from "./flatlist/RenderLocalUsers";
@@ -12,6 +12,7 @@ const LocalUsers = ({
   fetchNextPage,
   hasNextPage,
   userId,
+  RightComponent,
 }) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -19,7 +20,7 @@ const LocalUsers = ({
     return (
       <RenderLocalUsers
         item={item}
-        press={() => {
+        onPress={() => {
           if (selectedId === item._id) {
             setSelectedId(null);
             return;
@@ -28,10 +29,11 @@ const LocalUsers = ({
         }}
         selectedId={selectedId}
         userId={userId}
+        RightComponent={RightComponent}
+        refetch={refetch}
       />
     );
   };
-  const DATA = data.pages.flat();
 
   return (
     <FlatList
@@ -43,10 +45,7 @@ const LocalUsers = ({
       removeClippedSubviews={true}
       extraData={selectedId}
       renderItem={renderItem}
-      keyExtractor={(item) => {
-        console.log(item._id);
-        return item._id;
-      }}
+      keyExtractor={(item) => item._id}
       refreshing={isRefetching}
       onRefresh={refetch}
       onEndReached={(e) => fetchNextPage()}

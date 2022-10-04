@@ -16,7 +16,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function firebaseInit() {
   if (!getApps().length) {
-    console.log("no apps... initializing firebase");
     try {
       const app = initializeApp({
         apiKey: "AIzaSyDiOnVYDYGSBGZykHw8E-fP4HILLK5F5bY",

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import LocalUserButtons from "../../components/flatlist/LocalUserButtons";
 
 import LocalUsers from "../../components/LocalUsers";
 import { UserContext } from "../../contexts/UserProvider";
@@ -35,6 +36,7 @@ const LocalUsersTab = () => {
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
       userId={user._id}
+      RightComponent={LocalUserButtons}
     />
   );
 };
