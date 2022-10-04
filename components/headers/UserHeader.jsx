@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Text, View, Image } from "react-native";
 import { UserContext } from "../../contexts/UserProvider";
-import { colors, fontSize, iconSize } from "../../styles/styles";
+import { appFonts, colors, fontSize, iconSize } from "../../styles/styles";
 import { ScreenContainer } from "../ScreenContainer";
 
 const UserHeader = () => {
@@ -12,14 +12,29 @@ const UserHeader = () => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          paddingBottom: 15,
+          paddingTop: 15,
+          paddingBottom: 20,
         }}
       >
         <View>
-          <Text style={{ color: colors.primaryText, fontSize: fontSize.small }}>
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontSize: fontSize.medium,
+              fontFamily: appFonts.signika,
+            }}
+          >
             Hello there,
           </Text>
-          <Text style={{ color: colors.primaryText }}>{user.alias}</Text>
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontFamily: appFonts.signika,
+              fontSize: fontSize.large,
+            }}
+          >
+            {user.alias}
+          </Text>
         </View>
 
         <View

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Text, FlatList, Button } from "react-native";
 
-import { layout } from "../styles/styles";
+import { colors, layout } from "../styles/styles";
 import { RenderLocalUsers } from "./flatlist/RenderLocalUsers";
 
 const LocalUsers = ({
@@ -49,7 +49,11 @@ const LocalUsers = ({
       refreshing={isRefetching}
       onRefresh={refetch}
       onEndReached={(e) => fetchNextPage()}
-      ListFooterComponent={!hasNextPage && <Text>End of list</Text>}
+      ListFooterComponent={
+        !hasNextPage && (
+          <Text style={{ color: colors.primaryText }}>End of list</Text>
+        )
+      }
     />
   );
 };

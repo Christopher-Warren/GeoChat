@@ -8,7 +8,13 @@ import {
   Animated,
   refetch,
 } from "react-native";
-import { borderRadius, colors, fontSize, iconSize } from "../../styles/styles";
+import {
+  appFonts,
+  borderRadius,
+  colors,
+  fontSize,
+  iconSize,
+} from "../../styles/styles";
 import { BodyText } from "../text/TextStyles";
 
 export const RenderLocalUsers = ({
@@ -103,8 +109,16 @@ export const RenderLocalUsers = ({
           </View>
 
           <View>
-            <Text style={styles.topLeftText}>User</Text>
-            <Text style={styles.bottomLeftText}>{item.alias}</Text>
+            <Text
+              style={[styles.topLeftText, { fontFamily: appFonts.signika }]}
+            >
+              User
+            </Text>
+            <Text
+              style={[styles.bottomLeftText, { fontFamily: appFonts.signika }]}
+            >
+              {item.alias}
+            </Text>
           </View>
         </View>
 
