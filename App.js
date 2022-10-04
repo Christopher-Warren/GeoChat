@@ -22,12 +22,7 @@ export default function App() {
     signika: require("./assets/fonts/Signika/Signika-VariableFont_wght.ttf"),
     roboto_slab: require("./assets/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf"),
   });
-  /* <NavigationContainer theme={MyTheme}>
-            <StatusBar backgroundColor={colors.themeBackground} style="light" />
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Main" component={MainScreen} />
-            </Stack.Navigator>
-          </NavigationContainer> */
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>

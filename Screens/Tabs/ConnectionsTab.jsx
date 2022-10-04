@@ -19,11 +19,6 @@ const ConnectionsTab = ({ navigation }) => {
     if (!data) return;
 
     if (previousData.current !== data) {
-      // can optionally compare, and update new data after clearing,
-      // e.g. X new people are near
-
-      // will currently only render 10 items at a time
-      // can potentially add meta data to endpoint stating total #
       navigation.setOptions({ tabBarBadge: data.pages.flat().length });
       previousData.current = data;
       return;

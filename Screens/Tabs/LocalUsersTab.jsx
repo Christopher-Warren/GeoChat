@@ -33,6 +33,14 @@ const LocalUsersTab = ({ navigation, route }) => {
     if (previousData.current !== data) {
       console.log("data is diff");
       // can optionally compare, and update new data after clearing
+
+      // e.g. X new people are near
+
+      // will currently only render 10 items at a time
+      // can potentially add meta data to endpoint stating total #
+
+      // can also save state or local storage and compare with that value
+      // which prevents new items from showing after restarting app
       navigation.setOptions({ tabBarBadge: data.pages.flat().length });
       previousData.current = data;
       return;

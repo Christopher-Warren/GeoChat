@@ -2,6 +2,11 @@ export const layout = {
   paddingHorizontal: 15,
 };
 
+export const appFonts = {
+  signika: "signika",
+  roboto_slab: "roboto_slab",
+};
+
 export const colors = {
   themeBackground: "#0A0A0A",
   primaryText: "#ffffff",
