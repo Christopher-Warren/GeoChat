@@ -70,7 +70,7 @@ export const RenderLocalUsers = ({
           {
             backgroundColor: connected
               ? colors.primaryAccent
-              : colors.inactiveTab,
+              : colors.primaryBackground,
           },
           { overflow: "hidden", opacity: animated },
         ]}
@@ -113,12 +113,12 @@ export const RenderLocalUsers = ({
             Active
           </Text>
           <Text style={{ color: colors.primaryText }}>Recently</Text> */}
-          <BodyText>
+          {/* <BodyText>
             One: {item.pendingConnection?.creator.hasAccepted ? "yes" : "no"}
           </BodyText>
           <BodyText>
             Two:{item.pendingConnection?.recipient.hasAccepted ? "yes" : "no"}
-          </BodyText>
+          </BodyText> */}
         </View>
 
         <View

@@ -9,8 +9,8 @@ export const LocalUserButtons = ({ userId, selectedId, refetch, item }) => {
     <>
       <Pressable
         style={{
-          padding: 5,
-          backgroundColor: colors.secondaryText,
+          padding: 10,
+          backgroundColor: "#37955D",
           borderRadius: 10,
         }}
         onPress={async (e) => {

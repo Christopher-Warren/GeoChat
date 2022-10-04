@@ -30,7 +30,6 @@ const MainScreen = (props) => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
-
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             size = 22;
@@ -60,15 +59,23 @@ const MainScreen = (props) => {
           ),
         })}
       >
+        <Tab.Screen name="Home" component={HomeTab} />
         <Tab.Screen
-          name="Home"
-          options={{ unmountOnBlur: true }}
-          component={HomeTab}
+          name="UsersNearby"
+          options={{
+            tabBarBadge: 1,
+            lazy: false,
+            tabBarBadgeStyle: { backgroundColor: colors.primaryAccent },
+          }}
+          component={LocalUsersTab}
         />
-        <Tab.Screen name="UsersNearby" component={LocalUsersTab} />
         <Tab.Screen
           name="Connections"
-          options={{ unmountOnBlur: true }}
+          options={{
+            tabBarBadge: 1,
+            lazy: false,
+            tabBarBadgeStyle: { backgroundColor: colors.primaryAccent },
+          }}
           component={ConnectionsTab}
         />
       </Tab.Navigator>

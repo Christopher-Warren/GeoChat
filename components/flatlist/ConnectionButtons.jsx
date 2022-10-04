@@ -17,8 +17,8 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
       {isCreator || isConnected ? (
         <Pressable
           style={{
-            padding: 5,
-            backgroundColor: colors.secondaryText,
+            padding: 10,
+            backgroundColor: "#D9594C",
             borderRadius: 10,
           }}
           onPress={async (e) => {
@@ -37,7 +37,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
       ) : (
         <Pressable
           style={{
-            padding: 5,
+            padding: 10,
             backgroundColor: colors.secondaryText,
             borderRadius: 10,
           }}
@@ -50,7 +50,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
             refetch();
           }}
         >
-          <Ionicons name="send-outline" size={25} color="white" />
+          <Ionicons name="checkmark-outline" size={25} color="white" />
         </Pressable>
       )}
     </>
