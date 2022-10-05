@@ -31,7 +31,9 @@ function OnboardingStack({ navigation }) {
 
   return (
     <NavigationContainer theme={NavTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, animation: "slide_from_right" }}
+      >
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen
           name="VerificationScreen"

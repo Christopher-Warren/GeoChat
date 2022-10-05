@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Text, FlatList, Button } from "react-native";
+import { Text, FlatList, Button, View } from "react-native";
 
-import { colors, layout } from "../styles/styles";
+import { appFonts, colors, fontSize, layout } from "../styles/styles";
 import { RenderLocalUsers } from "./flatlist/RenderLocalUsers";
+import { ScreenContainer } from "./ScreenContainer";
+import { BodyText } from "./text/TextStyles";
 
 const LocalUsers = ({
   data,
@@ -13,6 +15,7 @@ const LocalUsers = ({
   hasNextPage,
   userId,
   RightComponent,
+  ListHeader,
 }) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -43,17 +46,18 @@ const LocalUsers = ({
       }}
       data={data.pages.flat()}
       removeClippedSubviews={true}
+      ListHeaderComponent={ListHeader}
       extraData={selectedId}
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       refreshing={isRefetching}
       onRefresh={refetch}
       onEndReached={(e) => fetchNextPage()}
-      ListFooterComponent={
-        !hasNextPage && (
-          <Text style={{ color: colors.primaryText }}>End of list</Text>
-        )
-      }
+      // ListFooterComponent={
+      //   !hasNextPage && (
+      //     <Text style={{ color: colors.primaryText }}>End of list</Text>
+      //   )
+      // }
     />
   );
 };

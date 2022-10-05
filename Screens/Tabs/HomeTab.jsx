@@ -6,8 +6,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { RenderLocalUsers } from "../../components/flatlist/RenderLocalUsers";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { AnimatedButton } from "../../components/animated/AnimatedButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth } from "firebase/auth/react-native";
 
 const HomeTab = () => {
+  const user = getAuth();
+
   return (
     <ScreenContainer>
       <View
@@ -62,7 +66,15 @@ const HomeTab = () => {
         <AnimatedButton icon="cash-outline" text="Free Credits" />
 
         <View style={styles.verticalLine}></View>
-        <AnimatedButton icon="keypad-outline" text="Promo" />
+        <AnimatedButton
+          icon="keypad-outline"
+          onPress={async (e) => {
+            await user.signOut();
+            await AsyncStorage.clear();
+            console.log("user signed out");
+          }}
+          text="Promo"
+        />
       </LinearGradient>
     </ScreenContainer>
   );

@@ -1,11 +1,13 @@
 import { useIsFocused } from "@react-navigation/native";
-import { useContext, useEffect, useRef } from "react";
-import { Text } from "react-native";
+import { forwardRef, useContext, useEffect, useRef } from "react";
+import { Text, View } from "react-native";
 import ConnectionButtons from "../../components/flatlist/ConnectionButtons";
 import LocalUsers from "../../components/LocalUsers";
 import { ScreenContainer } from "../../components/ScreenContainer";
+import { BodyText } from "../../components/text/TextStyles";
 import { UserContext } from "../../contexts/UserProvider";
 import { useLocalUsersConnections } from "../../hooks/useLocalUsersConnections";
+import { appFonts, colors, fontSize } from "../../styles/styles";
 
 const ConnectionsTab = ({ navigation }) => {
   const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
@@ -32,8 +34,31 @@ const ConnectionsTab = ({ navigation }) => {
   if (!data) {
     return null;
   }
+
+  const ListHeader = () => {
+    return (
+      <View style={{ paddingBottom: 40 }}>
+        <BodyText
+          style={{ fontFamily: appFonts.signika, fontSize: fontSize["3xl"] }}
+        >
+          Pending connections
+        </BodyText>
+        <BodyText
+          style={{
+            fontFamily: appFonts.signika,
+            fontSize: fontSize.medium,
+            color: colors.secondaryText,
+          }}
+        >
+          Tap a user to accept or cancel chat request!
+        </BodyText>
+      </View>
+    );
+  };
+
   return (
     <LocalUsers
+      ListHeader={ListHeader}
       data={data}
       refetch={refetch}
       isRefetching={isRefetching}

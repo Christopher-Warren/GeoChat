@@ -66,9 +66,8 @@ export const SignupScreen = ({ navigation, route }) => {
   return (
     <ScreenContainer paddingTopEnabled flexEnabled>
       <FirebaseRecaptchaVerifierModal
-        appVerificationDisabledForTesting={true}
+        // appVerificationDisabledForTesting={true}
         ref={recaptchaVerifier}
-        androidLayerType="software"
         firebaseConfig={app.options}
         attemptInvisibleVerification={true}
       />
@@ -157,13 +156,13 @@ export const SignupScreen = ({ navigation, route }) => {
               sanitizedPhoneNumber,
               recaptchaVerifier.current
             );
-
             navigation.navigate("VerificationScreen", {
               verificationId,
               phoneNumber: sanitizedPhoneNumber,
             });
           } catch (err) {
             console.log(err.message);
+            console.log(sanitizedPhoneNumber, typeof sanitizedPhoneNumber);
           }
         }}
       >
