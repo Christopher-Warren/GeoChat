@@ -18,7 +18,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
         <Pressable
           style={{
             padding: 10,
-            backgroundColor: "#D9594C",
+            backgroundColor: colors.red,
             borderRadius: 10,
           }}
           onPress={async (e) => {
@@ -38,7 +38,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
         <Pressable
           style={{
             padding: 10,
-            backgroundColor: colors.secondaryText,
+            backgroundColor: colors.green,
             borderRadius: 10,
           }}
           onPress={async (e) => {

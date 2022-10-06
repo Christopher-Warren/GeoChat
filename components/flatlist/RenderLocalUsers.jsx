@@ -13,6 +13,7 @@ import {
   borderRadius,
   colors,
   fontSize,
+  getAvatarUri,
   iconSize,
 } from "../../styles/styles";
 import { BodyText } from "../text/TextStyles";
@@ -31,6 +32,7 @@ export const RenderLocalUsers = ({
 
   const width = useRef(null);
 
+  const avatarUri = getAvatarUri(item._id);
   const fadeIn = () => {
     Animated.timing(animated, {
       toValue: 0.4,
@@ -103,7 +105,7 @@ export const RenderLocalUsers = ({
                 width: 50,
               }}
               source={{
-                uri: `https://avatars.dicebear.com/api/bottts/:${item._id}.png?primaryColorLevel=700`,
+                uri: avatarUri,
               }}
             />
           </View>
@@ -115,7 +117,10 @@ export const RenderLocalUsers = ({
               User
             </Text>
             <Text
-              style={[styles.bottomLeftText, { fontFamily: appFonts.signika }]}
+              style={[
+                styles.bottomLeftText,
+                { fontFamily: appFonts.signika_bold },
+              ]}
             >
               {item.alias}
             </Text>
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
   },
   bottomLeftText: {
     color: colors.primaryText,
-    fontWeight: "bold",
+
     fontSize: fontSize.large,
   },
 });

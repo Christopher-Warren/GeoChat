@@ -2,9 +2,19 @@ export const layout = {
   paddingHorizontal: 15,
 };
 
+export const getAvatarUri = (id) => {
+  return `https://avatars.dicebear.com/api/bottts/:${id}.png?colors=amber,blue,cyan,deepOrange,deepPurple,green,indigo,lightBlue,lightGreen,lime,orange,pink,purple,red,teal,yellow&primaryColorLevel=400&colorful=true`;
+};
+
 export const appFonts = {
   signika: "signika",
+
+  signika_bold: "signika_bold",
+  signika_light: "signika_light",
+
   roboto_slab: "roboto_slab",
+  roboto_slab_bold: "roboto_slab_bold",
+  roboto_slab_light: "roboto_slab_light",
 };
 
 export const colors = {
@@ -16,6 +26,8 @@ export const colors = {
   primaryAccent: "#5EE87E",
   border: "#2c2c2c",
   inactiveTab: "#525252",
+  green: "#3DA466",
+  red: "#D9594C",
 };
 
 // Font: Signika

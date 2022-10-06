@@ -13,6 +13,7 @@ import { useLocation } from "../../hooks/useLocation";
 import { ScreenContainer } from "../../components/ScreenContainer";
 
 import { appFonts, colors, fontSize } from "../../styles/styles";
+import { FlatListHeader } from "../../components/headers/FlatListHeader";
 {
   /* <Button
             color={colors.primaryBackground}
@@ -60,28 +61,6 @@ const LocalUsersTab = ({ navigation, route }) => {
     return null;
   }
 
-  const ListHeader = () => {
-    return (
-      <View style={{ paddingBottom: 40 }}>
-        <BodyText
-          style={{ fontFamily: appFonts.signika, fontSize: fontSize["3xl"] }}
-        >
-          Users within 1 mile
-        </BodyText>
-        <BodyText
-          style={{
-            fontFamily: appFonts.signika,
-            fontSize: fontSize.medium,
-            color: colors.secondaryText,
-            textAlign: "center",
-          }}
-        >
-          Tap a user to request to chat!
-        </BodyText>
-      </View>
-    );
-  };
-
   return (
     <LocalUsers
       data={data}
@@ -92,7 +71,12 @@ const LocalUsersTab = ({ navigation, route }) => {
       hasNextPage={hasNextPage}
       userId={user._id}
       RightComponent={LocalUserButtons}
-      ListHeader={ListHeader}
+      ListHeader={
+        <FlatListHeader
+          title="Users within one mile"
+          body="Tap a user to request to chat"
+        />
+      }
     />
   );
 };

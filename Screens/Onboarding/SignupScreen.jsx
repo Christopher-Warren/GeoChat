@@ -24,18 +24,6 @@ export const SignupScreen = ({ navigation, route }) => {
   const [phoneNumber, setPhoneNumber] = useState("650-555-1234");
   const [countryCode, setCountryCode] = useState(null);
 
-  /* 
-  Client crashes on android when react-navigation/router navigates
-  from a component that renders a webview
-  • One solution is to disable, or change the default animation 
-  on the component which is being navigated TO
-  • Another is to set the androidLayerType="software" prop on the webview component
-  
-
-  https://github.com/react-navigation/react-navigation/issues/9061#issue-742251453
-  
-  */
-
   useEffect(() => {
     const setMobileCountryCode = async () => {
       // @TODO: Handle case where there is no found code

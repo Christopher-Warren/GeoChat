@@ -10,12 +10,15 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "distribution": "store"
+    }
   },
   "submit": {
     "production": {
       "android": {
-        "releaseStatus": "draft"
+        "releaseStatus": "inProgress",
+        "track": "internal"
       }
     }
   }

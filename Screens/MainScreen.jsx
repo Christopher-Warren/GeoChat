@@ -30,6 +30,9 @@ const MainScreen = (props) => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           header: () => <UserHeader />,
+
+          headerTransparent: true,
+
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             size = 22;
@@ -48,15 +51,9 @@ const MainScreen = (props) => {
           tabBarLabelStyle: { fontSize: fontSize.small },
           tabBarShowLabel: false,
           tabBarInactiveTintColor: colors.inactiveTab,
-          tabBarBackground: () => (
-            <View
-              style={{
-                height: "100%",
-                width: "100%",
-                backgroundColor: colors.themeBackground,
-              }}
-            />
-          ),
+          tabBarStyle: {
+            backgroundColor: colors.themeBackground,
+          },
         })}
       >
         <Tab.Screen name="Home" component={HomeTab} />
@@ -65,7 +62,10 @@ const MainScreen = (props) => {
           options={{
             tabBarBadge: 1,
             lazy: false,
-            tabBarBadgeStyle: { backgroundColor: colors.primaryAccent },
+            tabBarBadgeStyle: {
+              backgroundColor: colors.primaryAccent,
+              marginTop: 3,
+            },
           }}
           component={LocalUsersTab}
         />
@@ -74,7 +74,10 @@ const MainScreen = (props) => {
           options={{
             tabBarBadge: 1,
             lazy: false,
-            tabBarBadgeStyle: { backgroundColor: colors.primaryAccent },
+            tabBarBadgeStyle: {
+              backgroundColor: colors.primaryAccent,
+              marginTop: 3,
+            },
           }}
           component={ConnectionsTab}
         />

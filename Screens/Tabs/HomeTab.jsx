@@ -8,9 +8,11 @@ import { ScreenContainer } from "../../components/ScreenContainer";
 import { AnimatedButton } from "../../components/animated/AnimatedButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth } from "firebase/auth/react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 const HomeTab = () => {
   const user = getAuth();
+  const height = useHeaderHeight();
 
   return (
     <ScreenContainer>
@@ -21,6 +23,7 @@ const HomeTab = () => {
           width: "100%",
           padding: 20,
           paddingBottom: 30,
+          marginTop: height,
         }}
       >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -38,9 +41,9 @@ const HomeTab = () => {
         <Text
           style={{
             fontSize: fontSize.xxlarge,
-            fontWeight: "500",
+
             color: colors.primaryText,
-            fontFamily: appFonts.roboto_slab,
+            fontFamily: appFonts.roboto_slab_bold,
           }}
         >
           10001

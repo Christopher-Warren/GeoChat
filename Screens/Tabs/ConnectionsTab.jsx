@@ -8,6 +8,8 @@ import { BodyText } from "../../components/text/TextStyles";
 import { UserContext } from "../../contexts/UserProvider";
 import { useLocalUsersConnections } from "../../hooks/useLocalUsersConnections";
 import { appFonts, colors, fontSize } from "../../styles/styles";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { FlatListHeader } from "../../components/headers/FlatListHeader";
 
 const ConnectionsTab = ({ navigation }) => {
   const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
@@ -35,30 +37,14 @@ const ConnectionsTab = ({ navigation }) => {
     return null;
   }
 
-  const ListHeader = () => {
-    return (
-      <View style={{ paddingBottom: 40 }}>
-        <BodyText
-          style={{ fontFamily: appFonts.signika, fontSize: fontSize["3xl"] }}
-        >
-          Pending connections
-        </BodyText>
-        <BodyText
-          style={{
-            fontFamily: appFonts.signika,
-            fontSize: fontSize.medium,
-            color: colors.secondaryText,
-          }}
-        >
-          Tap a user to accept or cancel chat request!
-        </BodyText>
-      </View>
-    );
-  };
-
   return (
     <LocalUsers
-      ListHeader={ListHeader}
+      ListHeader={
+        <FlatListHeader
+          title="Chat Requests"
+          body="Tap a user to accept or cancel chat request"
+        />
+      }
       data={data}
       refetch={refetch}
       isRefetching={isRefetching}

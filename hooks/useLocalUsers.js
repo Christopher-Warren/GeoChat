@@ -31,7 +31,7 @@ export const useLocalUsers = () => {
         if (lastPage.length < 10) return;
         return pages.length + 1;
       },
-      refetchInterval: 100000,
+      // refetchInterval: 100000,
     });
 
   console.log("uslocalUsers");
