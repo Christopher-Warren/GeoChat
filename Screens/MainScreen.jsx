@@ -60,7 +60,7 @@ const MainScreen = (props) => {
         <Tab.Screen
           name="UsersNearby"
           options={{
-            tabBarBadge: 1,
+            tabBarBadge: null,
             lazy: false,
             tabBarBadgeStyle: {
               backgroundColor: colors.primaryAccent,
@@ -72,7 +72,7 @@ const MainScreen = (props) => {
         <Tab.Screen
           name="Connections"
           options={{
-            tabBarBadge: 1,
+            tabBarBadge: null,
             lazy: false,
             tabBarBadgeStyle: {
               backgroundColor: colors.primaryAccent,

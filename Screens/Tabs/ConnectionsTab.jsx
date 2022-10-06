@@ -21,15 +21,15 @@ const ConnectionsTab = ({ navigation }) => {
 
   useEffect(() => {
     if (!data) return;
-
+    if (isFocused) {
+      return navigation.setOptions({ tabBarBadge: null });
+    }
     if (previousData.current !== data) {
-      navigation.setOptions({ tabBarBadge: data.pages.flat().length });
+      const length = data.pages.flat().length;
+
+      navigation.setOptions({ tabBarBadge: length >= 10 ? "10+" : length });
       previousData.current = data;
       return;
-    }
-
-    if (isFocused) {
-      navigation.setOptions({ tabBarBadge: null });
     }
   }, [data, isFocused]);
 

@@ -35,9 +35,10 @@ const LocalUsersTab = ({ navigation, route }) => {
 
   useEffect(() => {
     if (!data) return;
-
+    if (isFocused) {
+      return navigation.setOptions({ tabBarBadge: null });
+    }
     if (previousData.current !== data) {
-      console.log("data is diff");
       // can optionally compare, and update new data after clearing
 
       // e.g. X new people are near
@@ -47,13 +48,11 @@ const LocalUsersTab = ({ navigation, route }) => {
 
       // can also save state or local storage and compare with that value
       // which prevents new items from showing after restarting app
-      navigation.setOptions({ tabBarBadge: data.pages.flat().length });
+      const length = data.pages.flat().length;
+
+      navigation.setOptions({ tabBarBadge: length >= 10 ? "10+" : length });
       previousData.current = data;
       return;
-    }
-
-    if (isFocused) {
-      navigation.setOptions({ tabBarBadge: null });
     }
   }, [data, isFocused]);
 

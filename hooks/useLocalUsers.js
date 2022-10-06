@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import axios from "axios";
 
@@ -7,7 +7,6 @@ import { UserContext } from "../contexts/UserProvider";
 
 export const useLocalUsers = () => {
   const user = useContext(UserContext);
-  const [page, setPage] = useState(0);
 
   // react query is handling these args
   const fetchLocalUsers = async ({ pageParam = 0 }) => {
@@ -19,27 +18,19 @@ export const useLocalUsers = () => {
     return data;
   };
 
-  // const { data, isLoading, refetch, isRefetching } = useQuery(
-  //   ["localUsers", page],
-  //   () => fetchLocalUsers(page),
-  //   { keepPreviousData: true }
-  // );
-
   const { data, isLoading, refetch, fetchNextPage, isRefetching, hasNextPage } =
     useInfiniteQuery([`localUsers`], fetchLocalUsers, {
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.length < 10) return;
-        return pages.length + 1;
+        return pages.length;
       },
       // refetchInterval: 100000,
     });
 
-  console.log("uslocalUsers");
-
   return {
     data,
     refetch,
-    isRefetching: isLoading,
+    isRefetching,
     fetchNextPage,
     hasNextPage,
   };
