@@ -4,9 +4,8 @@ import { View } from "react-native";
 import { appFonts, colors, fontSize } from "../../styles/styles";
 import { BodyText } from "../text/TextStyles";
 export const FlatListHeader = ({ title = "", body = "" }) => {
-  const height = useHeaderHeight();
   return (
-    <View style={{ paddingBottom: 40, marginTop: height }}>
+    <View style={{ paddingBottom: 35, paddingTop: 10 }}>
       <BodyText
         style={{
           fontFamily: appFonts.signika_bold,

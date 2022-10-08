@@ -8,6 +8,8 @@ import { useFonts } from "expo-font";
 import { colors } from "./styles/styles";
 import { StatusBar } from "expo-status-bar";
 
+import { AlertNotificationRoot } from "react-native-alert-notification";
+
 import * as NavigationBar from "expo-navigation-bar";
 
 // Initialize Axios
@@ -32,13 +34,36 @@ export default function App() {
 
   NavigationBar.setBackgroundColorAsync(colors.themeBackground);
 
+  /*
+  @TODO: 
+  [] Animate onboarding buttons
+  [] show more details during onboarding process
+
+  [] Style 0 users & 0 connections tabs
+
+  */
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <SafeAreaProvider>
-          <StatusBar backgroundColor={colors.themeBackground} style="light" />
+          <AlertNotificationRoot
+            dialogConfig={{ autoClose: true }}
+            theme="dark"
+            colors={[
+              { success: colors.green, card: "red" },
+              {
+                success: colors.green,
+                card: colors.primaryBackground,
+                label: colors.primaryText,
+                danger: colors.red,
+              },
+            ]}
+          >
+            <StatusBar backgroundColor={colors.themeBackground} style="light" />
 
-          <MainScreen />
+            <MainScreen />
+          </AlertNotificationRoot>
         </SafeAreaProvider>
       </UserProvider>
     </QueryClientProvider>

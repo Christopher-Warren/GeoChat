@@ -1,6 +1,7 @@
 import { useIsFocused, useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useRef, forwardRef } from "react";
 import { View } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 import LocalUserButtons from "../../components/flatlist/LocalUserButtons";
 
@@ -27,6 +28,8 @@ const LocalUsersTab = ({ navigation, route }) => {
   const user = useContext(UserContext);
   const location = useLocation();
   const previousData = useRef(null);
+
+  const height = useHeaderHeight();
 
   const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsers();
@@ -61,22 +64,24 @@ const LocalUsersTab = ({ navigation, route }) => {
   }
 
   return (
-    <LocalUsers
-      data={data}
-      refetch={refetch}
-      isRefetching={isRefetching}
-      setPage={setPage}
-      fetchNextPage={fetchNextPage}
-      hasNextPage={hasNextPage}
-      userId={user._id}
-      RightComponent={LocalUserButtons}
-      ListHeader={
-        <FlatListHeader
-          title="Users within one mile"
-          body="Tap a user to request to chat"
-        />
-      }
-    />
+    <ScreenContainer style={{ marginTop: height - 15 }}>
+      <LocalUsers
+        data={data.pages.flat()}
+        refetch={refetch}
+        isRefetching={isRefetching}
+        setPage={setPage}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        userId={user._id}
+        RightComponent={LocalUserButtons}
+        ListHeader={
+          <FlatListHeader
+            title="Users within one mile"
+            body="Tap a user to request to chat"
+          />
+        }
+      />
+    </ScreenContainer>
   );
 };
 

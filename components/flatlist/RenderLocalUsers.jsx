@@ -65,6 +65,8 @@ export const RenderLocalUsers = ({
     item.pendingConnection?.creator.hasAccepted &&
     item.pendingConnection?.recipient.hasAccepted;
 
+  const isCreator = item.pendingConnection?.creator.user === userId;
+
   return (
     <Pressable
       key={item._id}
@@ -145,7 +147,6 @@ export const RenderLocalUsers = ({
             height: "100%",
             backgroundColor: "white",
           }}
-          // pass this down
         >
           <Animated.View
             onLayout={(e) => (width.current = e.nativeEvent.layout.width)}

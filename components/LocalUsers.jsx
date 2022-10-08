@@ -46,9 +46,8 @@ const LocalUsers = ({
     <FlatList
       contentContainerStyle={{
         paddingBottom: 45,
-        paddingHorizontal: layout.paddingHorizontal,
       }}
-      data={data.pages.flat()}
+      data={data}
       ListHeaderComponent={ListHeader}
       extraData={selectedId}
       renderItem={renderItem}

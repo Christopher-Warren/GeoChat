@@ -4,6 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import axios from "axios";
 import { BodyText } from "../text/TextStyles";
+import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
 export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
   const creator = item.pendingConnection.creator;
@@ -29,6 +30,14 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
               recipientId: recipient.user,
             });
 
+            if (req.status === 200)
+              Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: "Success",
+                textBody: `Chat request cenceled`,
+                button: "Ok",
+              });
+
             refetch();
           }}
         >
@@ -42,12 +51,22 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
             borderRadius: 10,
           }}
           onPress={async (e) => {
-            const connectionId = item.pendingConnection._id;
-            const req = await axios.post("/api/acceptRequest", {
-              connectionId: connectionId,
-            });
+            try {
+              const connectionId = item.pendingConnection._id;
+              const req = await axios.post("/api/acceptRequest", {
+                connectionId: connectionId,
+              });
 
-            refetch();
+              if (req.status === 200)
+                Dialog.show({
+                  type: ALERT_TYPE.SUCCESS,
+                  title: "Success",
+                  textBody: `You will recieve a text message allowing you to chat soon`,
+                  button: "Ok",
+                });
+
+              refetch();
+            } catch (error) {}
           }}
         >
           <Ionicons name="checkmark-outline" size={25} color="white" />

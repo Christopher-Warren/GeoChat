@@ -72,6 +72,7 @@ const MainScreen = (props) => {
         <Tab.Screen
           name="Connections"
           options={{
+            headerShown: false,
             tabBarBadge: null,
             lazy: false,
             tabBarBadgeStyle: {

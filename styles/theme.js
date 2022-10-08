@@ -9,6 +9,6 @@ export const NavTheme = {
     border: colors.border,
     primary: colors.primaryAccent,
     text: colors.primaryText,
-    card: "red",
+    card: colors.themeBackground,
   },
 };

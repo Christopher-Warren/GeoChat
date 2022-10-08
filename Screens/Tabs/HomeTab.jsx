@@ -1,4 +1,11 @@
-import { Pressable, Text, View, StyleSheet, Animated } from "react-native";
+import {
+  Pressable,
+  Text,
+  View,
+  StyleSheet,
+  Animated,
+  Button,
+} from "react-native";
 import { appFonts, borderRadius, colors, fontSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -10,12 +17,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth } from "firebase/auth/react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 
+import {
+  ALERT_TYPE,
+  Dialog,
+  AlertNotificationRoot,
+  Toast,
+} from "react-native-alert-notification";
+
 const HomeTab = () => {
   const user = getAuth();
   const height = useHeaderHeight();
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{ marginTop: height }}>
       <View
         style={{
           borderRadius: borderRadius.xlarge,
@@ -23,7 +37,6 @@ const HomeTab = () => {
           width: "100%",
           padding: 20,
           paddingBottom: 30,
-          marginTop: height,
         }}
       >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -36,6 +49,7 @@ const HomeTab = () => {
           >
             Availible Credits
           </Text>
+
           <Ionicons name="notifications-outline" size={25} color="white" />
         </View>
         <Text
@@ -49,6 +63,7 @@ const HomeTab = () => {
           10001
         </Text>
       </View>
+
       <LinearGradient
         style={{
           flexDirection: "row",
