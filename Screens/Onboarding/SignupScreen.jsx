@@ -1,6 +1,6 @@
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { Button, TextInput, View, Modal, Text, Pressable } from "react-native";
-import { HeaderText } from "../../components/text/TextStyles";
+import { BodyText, HeaderText } from "../../components/text/TextStyles";
 import { colors, fontSize } from "../../styles/styles";
 
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +14,8 @@ import { Loader } from "../../components/loaders/Loader";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { OnboardingHeader } from "../../components/headers/OnboardingHeader";
+import { AnimatedButton } from "../../components/animated/AnimatedButton";
+import { OnboardingForward } from "../../components/onboarding/buttons/OnboardingForward";
 
 export const SignupScreen = ({ navigation, route }) => {
   const recaptchaVerifier = useRef(null);
@@ -51,6 +53,27 @@ export const SignupScreen = ({ navigation, route }) => {
 
   const sanitizedPhoneNumber = `${countryCode.dial_code} ${phoneNumber}`;
 
+  const handleSubmit = async () => {
+    // The FirebaseRecaptchaVerifierModal ref implements the
+    // FirebaseAuthApplicationVerifier interface and can be
+    // passed directly to `verifyPhoneNumber`.
+
+    try {
+      const phoneProvider = new PhoneAuthProvider(auth);
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        sanitizedPhoneNumber,
+        recaptchaVerifier.current
+      );
+      navigation.navigate("VerificationScreen", {
+        verificationId,
+        phoneNumber: sanitizedPhoneNumber,
+      });
+    } catch (err) {
+      console.log(err.message);
+      console.log(sanitizedPhoneNumber, typeof sanitizedPhoneNumber);
+    }
+  };
+
   return (
     <ScreenContainer paddingTopEnabled flexEnabled>
       <FirebaseRecaptchaVerifierModal
@@ -63,7 +86,6 @@ export const SignupScreen = ({ navigation, route }) => {
         style={{ marginVertical: 15 }}
         route={route}
       ></OnboardingHeader>
-
       <HeaderText
         style={{
           color: colors.primaryText,
@@ -125,46 +147,20 @@ export const SignupScreen = ({ navigation, route }) => {
           onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
         />
       </View>
-      {/* <Button title="Send Verification Code" disabled={!phoneNumber} /> */}
-      <Pressable
+      <BodyText
         style={{
-          position: "absolute",
-          right: 15,
-          bottom: 15,
-        }}
-        disabled={!sanitizedPhoneNumber}
-        onPress={async () => {
-          // The FirebaseRecaptchaVerifierModal ref implements the
-          // FirebaseAuthApplicationVerifier interface and can be
-          // passed directly to `verifyPhoneNumber`.
-
-          try {
-            const phoneProvider = new PhoneAuthProvider(auth);
-            const verificationId = await phoneProvider.verifyPhoneNumber(
-              sanitizedPhoneNumber,
-              recaptchaVerifier.current
-            );
-            navigation.navigate("VerificationScreen", {
-              verificationId,
-              phoneNumber: sanitizedPhoneNumber,
-            });
-          } catch (err) {
-            console.log(err.message);
-            console.log(sanitizedPhoneNumber, typeof sanitizedPhoneNumber);
-          }
+          color: colors.secondaryText,
+          marginBottom: 15,
+          marginTop: 5,
         }}
       >
-        <Ionicons
-          name="arrow-forward"
-          size={fontSize["3xl"]}
-          color={"white"}
-          style={{
-            backgroundColor: colors.primaryBackground,
-            alignSelf: "flex-start",
-            borderRadius: 100,
-          }}
-        />
-      </Pressable>
+        We will send you a text with a verification code. Message and data rates
+        may apply.
+      </BodyText>
+      <OnboardingForward
+        onPress={handleSubmit}
+        disabled={!sanitizedPhoneNumber}
+      />
     </ScreenContainer>
   );
 };

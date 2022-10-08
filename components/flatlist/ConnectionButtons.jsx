@@ -34,7 +34,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
               Dialog.show({
                 type: ALERT_TYPE.SUCCESS,
                 title: "Success",
-                textBody: `Chat request cenceled`,
+                textBody: `Chat request canceled`,
                 button: "Ok",
               });
 
@@ -55,6 +55,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
               const connectionId = item.pendingConnection._id;
               const req = await axios.post("/api/acceptRequest", {
                 connectionId: connectionId,
+                userId: userId,
               });
 
               if (req.status === 200)
@@ -66,7 +67,14 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
                 });
 
               refetch();
-            } catch (error) {}
+            } catch (error) {
+              Dialog.show({
+                type: ALERT_TYPE.DANGER,
+                title: "Server error",
+                textBody: `Please try again later`,
+                button: "Ok",
+              });
+            }
           }}
         >
           <Ionicons name="checkmark-outline" size={25} color="white" />

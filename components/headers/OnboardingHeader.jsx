@@ -15,7 +15,7 @@ export const OnboardingHeader = ({ route, style }) => {
       ]}
     >
       <Ionicons
-        name={onSignupScreen ? "call" : "call-outline"}
+        name={onSignupScreen ? "call" : "call"}
         size={32}
         color={onSignupScreen ? colors.primaryText : colors.inactiveTab}
       />

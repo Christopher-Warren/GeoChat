@@ -15,7 +15,7 @@ import {
 import { OnboardingHeader } from "../../components/headers/OnboardingHeader";
 import { ScreenContainer } from "../../components/ScreenContainer";
 
-import { HeaderText } from "../../components/text/TextStyles";
+import { BodyText, HeaderText } from "../../components/text/TextStyles";
 import { colors, fontSize } from "../../styles/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -24,6 +24,8 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
+import { OnbordingBack } from "../../components/onboarding/buttons/OnbordingBack";
+import { OnboardingForward } from "../../components/onboarding/buttons/OnboardingForward";
 
 export const VerificationScreen = ({
   route: {
@@ -67,49 +69,68 @@ export const VerificationScreen = ({
     <ScreenContainer paddingTopEnabled flexEnabled>
       <OnboardingHeader
         style={{ marginVertical: 15 }}
-        route={"asd"}
+        route={"VerificationScreen"}
       ></OnboardingHeader>
       <HeaderText
         style={{
           color: colors.primaryText,
           fontSize: fontSize["3xl"],
-          marginVertical: 15,
+          marginTop: 15,
         }}
       >
-        Enter Verification Code
+        Enter your Verification Code
       </HeaderText>
+      <View style={{ flexDirection: "row", marginVertical: 15 }}>
+        <BodyText style={{ color: colors.secondaryText }}>
+          Sent to {phoneNumber} •
+        </BodyText>
+        <Pressable onPress={() => navigation.goBack()}>
+          <BodyText style={{ color: colors.primaryAccent }}> Change</BodyText>
+        </Pressable>
+      </View>
 
-      <CodeField
-        ref={ref}
-        {...props}
-        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-        value={verificationCode}
-        onChangeText={setVerificationCode}
-        cellCount={6}
-        keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        renderCell={({ index, symbol, isFocused }) => (
-          <Text
-            key={index}
-            style={styles.cell}
-            onLayout={getCellOnLayoutHandler(index)}
-            onChangeText={(verificationCode) =>
-              setVerificationCode(verificationCode)
-            }
-          >
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
-        )}
+      <View style={{ marginVertical: 30 }}>
+        <CodeField
+          ref={ref}
+          {...props}
+          // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+          cursorColor={colors.primaryAccent}
+          value={verificationCode}
+          onChangeText={setVerificationCode}
+          cellCount={6}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          renderCell={({ index, symbol, isFocused }) => (
+            <Text
+              key={index}
+              style={styles.cell}
+              onLayout={getCellOnLayoutHandler(index)}
+              onChangeText={(verificationCode) =>
+                setVerificationCode(verificationCode)
+              }
+            >
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </Text>
+          )}
+        />
+      </View>
+
+      <OnbordingBack
+        disabled={!verificationId}
+        onPress={() => navigation.goBack()}
       />
 
+      <OnboardingForward
+        disabled={verificationCode.length !== 6}
+        onPress={submitVerification}
+      />
       <Pressable
         style={{
           position: "absolute",
           left: 20,
           bottom: 20,
+          display: "none",
         }}
-        disabled={!verificationId}
-        onPress={() => navigation.goBack()}
       >
         <Ionicons
           name="arrow-back"
@@ -129,6 +150,7 @@ export const VerificationScreen = ({
           right: 20,
           bottom: 20,
           opacity: verificationCode.length === 6 ? 1 : 0.1,
+          display: "none",
         })}
         disabled={verificationCode.length !== 6}
         onPress={submitVerification}

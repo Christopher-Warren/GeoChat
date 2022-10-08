@@ -25,7 +25,7 @@ export const useLocation = () => {
           };
 
           try {
-            await axios.post("/api/pollLocation", {
+            const res = await axios.post("/api/pollLocation", {
               location: geoJSON,
               userId: user._id,
             });
