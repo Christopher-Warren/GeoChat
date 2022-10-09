@@ -53,9 +53,9 @@ const LocalUsers = ({
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       refreshing={isRefetching}
-      onRefresh={refetch}
       refreshControl={
         <RefreshControl
+          onRefresh={refetch}
           enabled={true}
           refreshing={isRefetching}
           progressViewOffset={height}

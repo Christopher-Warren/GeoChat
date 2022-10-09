@@ -14,11 +14,13 @@ import { FlatListHeader } from "../../components/headers/FlatListHeader";
 import Ionicons from "@expo/vector-icons/Feather";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useLocalUsers } from "../../hooks/useLocalUsers";
 const Tab = createMaterialTopTabNavigator();
 
 const ConnectionsTab = ({ navigation }) => {
   const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsersConnections();
+
   const user = useContext(UserContext);
 
   const previousData = useRef(null);
@@ -120,6 +122,11 @@ const ConnectionsTab = ({ navigation }) => {
     );
   };
 
+  console.log(
+    activeConnections.length,
+    sentRequests.length,
+    recievedRequests.length
+  );
   return (
     <ScreenContainer paddingTopEnabled flexEnabled>
       <Tab.Navigator

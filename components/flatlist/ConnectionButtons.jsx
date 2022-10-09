@@ -5,13 +5,22 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import { BodyText } from "../text/TextStyles";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
+import { useLocalUsers } from "../../hooks/useLocalUsers";
 
-export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
+export const ConnectionButtons = ({
+  userId,
+  selectedId,
+  refetch,
+  refetchExtra,
+  item,
+}) => {
   const creator = item.pendingConnection.creator;
   const recipient = item.pendingConnection.recipient;
 
   const isCreator = userId === creator.user;
   const isConnected = creator.hasAccepted && recipient.hasAccepted;
+
+  const { refetch: extraRefetch } = useLocalUsers();
 
   return (
     <>
@@ -39,6 +48,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
               });
 
             refetch();
+            extraRefetch();
           }}
         >
           <Ionicons name="close-outline" size={25} color="white" />
@@ -67,6 +77,7 @@ export const ConnectionButtons = ({ userId, selectedId, refetch, item }) => {
                 });
 
               refetch();
+              extraRefetch();
             } catch (error) {
               Dialog.show({
                 type: ALERT_TYPE.DANGER,

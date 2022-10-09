@@ -4,8 +4,10 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
 import axios from "axios";
+import { useLocalUsersConnections } from "../../hooks/useLocalUsersConnections";
 
 export const LocalUserButtons = ({ userId, selectedId, refetch, item }) => {
+  const { refetch: extraRefetch } = useLocalUsersConnections();
   return (
     <>
       <Pressable
@@ -30,6 +32,7 @@ export const LocalUserButtons = ({ userId, selectedId, refetch, item }) => {
               });
 
             refetch();
+            extraRefetch();
           } catch (error) {
             Dialog.show({
               type: ALERT_TYPE.DANGER,
