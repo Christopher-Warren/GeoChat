@@ -8,6 +8,8 @@ import { BodyText } from "./text/TextStyles";
 
 import { useHeaderHeight } from "@react-navigation/elements";
 
+import { useRoute } from "@react-navigation/native";
+
 const LocalUsers = ({
   data,
   isRefetching,
@@ -18,16 +20,31 @@ const LocalUsers = ({
   userId,
   RightComponent,
   ListHeader,
+  navigation,
 }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const height = useHeaderHeight();
 
+  const route = useRoute();
+
   const renderItem = ({ item }) => {
+    const connected =
+      item.pendingConnection?.creator.hasAccepted &&
+      item.pendingConnection?.recipient.hasAccepted;
+
     return (
       <RenderLocalUsers
         item={item}
         onPress={() => {
+          if (route.name === "Active" && connected) {
+            // navigate to conversation
+
+            navigation.navigate("Conversation");
+
+            return;
+          }
+
           if (selectedId === item._id) {
             setSelectedId(null);
             return;

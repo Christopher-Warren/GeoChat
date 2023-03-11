@@ -89,7 +89,6 @@ const HomeTab = () => {
           onPress={async (e) => {
             await user.signOut();
             await AsyncStorage.clear();
-            console.log("user signed out");
           }}
           text="Promo"
         />

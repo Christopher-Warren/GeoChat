@@ -79,6 +79,7 @@ const ConnectionsTab = ({ navigation }) => {
         hasNextPage={hasNextPage}
         userId={user._id}
         RightComponent={ConnectionButtons}
+        navigation={navigation}
       />
     );
   };
@@ -100,6 +101,7 @@ const ConnectionsTab = ({ navigation }) => {
         hasNextPage={hasNextPage}
         userId={user._id}
         RightComponent={ConnectionButtons}
+        navigation={navigation}
       />
     );
   };
@@ -118,15 +120,11 @@ const ConnectionsTab = ({ navigation }) => {
         hasNextPage={hasNextPage}
         userId={user._id}
         RightComponent={ConnectionButtons}
+        navigation={navigation}
       />
     );
   };
 
-  console.log(
-    activeConnections.length,
-    sentRequests.length,
-    recievedRequests.length
-  );
   return (
     <ScreenContainer paddingTopEnabled flexEnabled>
       <Tab.Navigator

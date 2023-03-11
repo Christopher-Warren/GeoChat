@@ -56,12 +56,12 @@ export const VerificationScreen = ({
       const userPhoneNumber = signedIn.user.phoneNumber;
       const firebaseUid = signedIn.user.uid;
 
-      console.log("Phone authentication successful 👍");
+      // console.log("Phone authentication successful 👍");
     } catch (err) {
       // Warning: Can't perform a React state update on an unmounted component.
       // This is a no-op, but it indicates a memory leak in your application.
       // To fix, cancel all subscriptions and asynchronous tasks in %s.%s, a useEffect cleanup function,
-      console.log("VerificationScreen: ", err.message);
+      // console.log("VerificationScreen: ", err.message);
     }
   };
 

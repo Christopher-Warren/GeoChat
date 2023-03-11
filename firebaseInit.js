@@ -35,7 +35,7 @@ function firebaseInit() {
       // ignore app already initialized
     }
   } else {
-    console.log("using storage..");
+    // console.log("using storage..");
   }
 }
 
