@@ -18,7 +18,7 @@ import HomeScreen from "./HomeScreen";
 
 import { NavTheme } from "../styles/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Conversation from "./Tabs/Conversation";
+import ConversationScreen from "./Tabs/Conversation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,7 +37,12 @@ const MainScreen = (props) => {
           options={{ headerShown: false }}
           component={HomeScreen}
         />
-        <Stack.Screen name="Conversation" component={Conversation} />
+        <Stack.Screen
+          options={{ animation: "none" }}
+          name="Conversation"
+          user="fart"
+          component={ConversationScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

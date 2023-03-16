@@ -39,8 +39,11 @@ const LocalUsers = ({
         onPress={() => {
           if (route.name === "Active" && connected) {
             // navigate to conversation
+            // connectionId
 
-            navigation.navigate("Conversation");
+            navigation.navigate("Conversation", {
+              id: "640f9a81ffbb2053e7219d59",
+            });
 
             return;
           }

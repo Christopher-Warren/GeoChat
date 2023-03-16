@@ -39,7 +39,7 @@ const HomeScreen = (props) => {
           let iconName;
           size = 22;
 
-          if (route.name === "Home") {
+          if (route.name === "HomeTab") {
             iconName = focused ? "home-outline" : "home-outline";
           } else if (route.name === "UsersNearby") {
             iconName = focused ? "people-outline" : "people-outline";
@@ -58,7 +58,7 @@ const HomeScreen = (props) => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeTab} />
+      <Tab.Screen name="HomeTab" component={HomeTab} />
       <Tab.Screen
         name="UsersNearby"
         options={{
