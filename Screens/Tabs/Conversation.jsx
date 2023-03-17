@@ -17,6 +17,7 @@ const Conversation = ({ route }) => {
 
   useEffect(() => {
     // Could potentially improve performance here
+
     const interval = setInterval(() => {
       async function getData() {
         const { data } = await axios.get("/api/getMessages", {
@@ -54,7 +55,7 @@ const Conversation = ({ route }) => {
           color: "white",
           backgroundColor: colors.primaryBackground,
           marginVertical: 7,
-          alignSelf: user === userId ? "flex-start" : "flex-end",
+          alignSelf: user === userId ? "flex-end" : "flex-start",
           maxWidth: "80%",
           paddingHorizontal: 12,
           paddingVertical: 10,
@@ -127,6 +128,7 @@ const Conversation = ({ route }) => {
 
             const messages = data.messages.reverse();
 
+            setNewMessage("");
             setMessageData(messages);
           }}
           style={{
