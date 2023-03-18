@@ -1,5 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
-import { forwardRef, useContext, useEffect, useRef } from "react";
+import { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import ConnectionButtons from "../../components/flatlist/ConnectionButtons";
 import LocalUsers from "../../components/LocalUsers";
@@ -18,8 +18,16 @@ import { useLocalUsers } from "../../hooks/useLocalUsers";
 const Tab = createMaterialTopTabNavigator();
 
 const ConnectionsTab = ({ navigation }) => {
-  const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
+  const { data, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsersConnections();
+
+  const [isRefetching, setIsRefetching] = useState(false);
+
+  const manualRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
+  };
 
   const user = useContext(UserContext);
 
@@ -72,7 +80,7 @@ const ConnectionsTab = ({ navigation }) => {
           />
         }
         data={sentRequests}
-        refetch={refetch}
+        refetch={manualRefetch}
         isRefetching={isRefetching}
         setPage={setPage}
         fetchNextPage={fetchNextPage}

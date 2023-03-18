@@ -1,5 +1,5 @@
 import { useIsFocused, useRoute } from "@react-navigation/native";
-import { useContext, useEffect, useRef, forwardRef } from "react";
+import { useContext, useEffect, useRef, forwardRef, useState } from "react";
 import { View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 
@@ -31,10 +31,18 @@ const LocalUsersTab = ({ navigation, route }) => {
 
   const height = useHeaderHeight();
 
-  const { data, isRefetching, refetch, setPage, fetchNextPage, hasNextPage } =
+  const { data, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsers();
 
   const isFocused = useIsFocused();
+
+  const [isRefetching, setIsRefetching] = useState(false);
+
+  const manualRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -67,7 +75,7 @@ const LocalUsersTab = ({ navigation, route }) => {
     <ScreenContainer style={{ marginTop: height - 15 }}>
       <LocalUsers
         data={data.pages.flat()}
-        refetch={refetch}
+        refetch={manualRefetch}
         isRefetching={isRefetching}
         setPage={setPage}
         fetchNextPage={fetchNextPage}

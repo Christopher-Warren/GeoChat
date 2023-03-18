@@ -18,7 +18,7 @@ import HomeScreen from "./HomeScreen";
 
 import { NavTheme } from "../styles/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ConversationScreen from "./Tabs/Conversation";
+import ConversationScreen from "./Tabs/ConversationScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
