@@ -21,10 +21,11 @@ export const useLocalUsersConnections = () => {
   const { data, isLoading, refetch, fetchNextPage, isRefetching, hasNextPage } =
     useInfiniteQuery([`localUsersConnections`], fetchLocalUsers, {
       getNextPageParam: (lastPage, pages) => {
+        if (!lastPage) return;
         if (lastPage.length < 10) return;
         return pages.length;
       },
-      // refetchInterval: 100000,
+      refetchInterval: 5000,
     });
 
   return {

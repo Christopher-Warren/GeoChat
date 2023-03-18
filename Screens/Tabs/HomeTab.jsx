@@ -17,6 +17,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth } from "firebase/auth/react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 
+import { useLocation } from "../../hooks/useLocation";
+
 import {
   ALERT_TYPE,
   Dialog,

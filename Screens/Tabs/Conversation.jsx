@@ -7,7 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { UserContext } from "../../contexts/UserProvider";
 
 const Conversation = ({ route }) => {
-  const connectionId = route.params.id;
+  const connectionId = route.params.connectionId;
   const user = useContext(UserContext);
 
   const userId = user._id;
@@ -26,6 +26,7 @@ const Conversation = ({ route }) => {
             userId: userId,
           },
         });
+
         const messages = data.messages.reverse();
         setMessageData(messages);
       }

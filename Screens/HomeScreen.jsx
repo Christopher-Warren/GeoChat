@@ -17,7 +17,7 @@ import ConnectionsTab from "./Tabs/ConnectionsTab";
 
 import { NavTheme } from "../styles/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Conversation from "./Tabs/Conversation";
+import { useLocation } from "../hooks/useLocation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

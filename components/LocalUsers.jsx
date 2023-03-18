@@ -33,6 +33,8 @@ const LocalUsers = ({
       item.pendingConnection?.creator.hasAccepted &&
       item.pendingConnection?.recipient.hasAccepted;
 
+    const connectionId = item.pendingConnection?._id;
+
     return (
       <RenderLocalUsers
         item={item}
@@ -42,7 +44,7 @@ const LocalUsers = ({
             // connectionId
 
             navigation.navigate("Conversation", {
-              id: "640f9a81ffbb2053e7219d59",
+              connectionId,
             });
 
             return;

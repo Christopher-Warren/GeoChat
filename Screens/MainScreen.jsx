@@ -40,7 +40,6 @@ const MainScreen = (props) => {
         <Stack.Screen
           options={{ animation: "none" }}
           name="Conversation"
-          user="fart"
           component={ConversationScreen}
         />
       </Stack.Navigator>

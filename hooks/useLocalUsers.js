@@ -10,21 +10,27 @@ export const useLocalUsers = () => {
 
   // react query is handling these args
   const fetchLocalUsers = async ({ pageParam = 0 }) => {
-    const { data } = await axios.post("/api/getLocalUsers", {
-      userId: user._id,
-      page: pageParam,
-    });
+    try {
+      const { data } = await axios.post("/api/getLocalUsers", {
+        userId: user._id,
+        page: pageParam,
+      });
 
-    return data;
+      return data;
+    } catch (error) {
+      const arr = [];
+      return arr;
+    }
   };
 
   const { data, isLoading, refetch, fetchNextPage, isRefetching, hasNextPage } =
     useInfiniteQuery([`localUsers`], fetchLocalUsers, {
       getNextPageParam: (lastPage, pages) => {
+        if (!lastPage) return;
         if (lastPage.length < 10) return;
         return pages.length;
       },
-      // refetchInterval: 100000,
+      refetchInterval: 5000,
     });
 
   return {
