@@ -70,7 +70,8 @@ const LocalUsersTab = ({ navigation, route }) => {
   if (!data) {
     return null;
   }
-
+  // causes jerky ui
+  // style={{ marginTop: height - 15 }}
   return (
     <ScreenContainer style={{ marginTop: height - 15 }}>
       <LocalUsers

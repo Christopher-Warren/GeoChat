@@ -24,13 +24,14 @@ const MainTabs = (props) => {
           let iconName;
           size = 22;
 
-          if (route.name === "HomeTab") {
-            iconName = focused ? "home-outline" : "home-outline";
-          } else if (route.name === "UsersNearby") {
-            iconName = focused ? "people-outline" : "people-outline";
+          if (route.name === "LocalUsersTab") {
+            iconName = focused ? "compass" : "compass-outline";
+            size += 6;
+          } else if (route.name === "RequestsTab") {
+            iconName = focused ? "people" : "people-outline";
             size += 4;
-          } else if (route.name === "Connections") {
-            iconName = focused ? "flash-outline" : "flash-outline";
+          } else if (route.name === "ChatTab") {
+            iconName = focused ? "flash" : "flash-outline";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -43,11 +44,12 @@ const MainTabs = (props) => {
         },
       })}
     >
-      <Tab.Screen name="HomeTab" component={LocalUsersTab} />
+      <Tab.Screen name="LocalUsersTab" component={LocalUsersTab} />
       {/* // Becomes request/sent tabs */}
       <Tab.Screen
-        name="UsersNearby"
+        name="RequestsTab"
         options={{
+          headerShown: false,
           tabBarBadge: null,
           lazy: false,
           tabBarBadgeStyle: {
@@ -58,7 +60,7 @@ const MainTabs = (props) => {
         component={RequestsTab}
       />
       <Tab.Screen
-        name="Connections"
+        name="ChatTab"
         options={{
           headerShown: false,
           tabBarBadge: null,
