@@ -3,15 +3,8 @@ import {
   signInWithCredential,
   PhoneAuthProvider,
 } from "firebase/auth/react-native";
-import { useEffect, useState } from "react";
-import {
-  Button,
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  Pressable,
-} from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { OnboardingHeader } from "../../components/headers/OnboardingHeader";
 import { ScreenContainer } from "../../components/ScreenContainer";
 

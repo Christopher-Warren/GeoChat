@@ -3,15 +3,14 @@ import { colors, fontSize } from "../styles/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
+
+import LocalUsersTab from "./Tabs/LocalUsersTab";
 import RequestsTab from "./Tabs/RequestsTab";
 import ChatTab from "./Tabs/ChatTab";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+
 const MainTabs = (props) => {
   return (
     <Tab.Navigator
@@ -31,7 +30,7 @@ const MainTabs = (props) => {
             iconName = focused ? "people" : "people-outline";
             size += 4;
           } else if (route.name === "ChatTab") {
-            iconName = focused ? "flash" : "flash-outline";
+            iconName = focused ? "chatbubble" : "chatbubble-outline";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -42,10 +41,14 @@ const MainTabs = (props) => {
         tabBarStyle: {
           backgroundColor: colors.themeBackground,
         },
+        tabBarBadge: null,
+        tabBarBadgeStyle: {
+          backgroundColor: colors.primaryAccent,
+          marginTop: 3,
+        },
       })}
     >
       <Tab.Screen name="LocalUsersTab" component={LocalUsersTab} />
-      {/* // Becomes request/sent tabs */}
       <Tab.Screen
         name="RequestsTab"
         options={{

@@ -3,7 +3,6 @@ import { colors } from "../../styles/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import axios from "axios";
-import { BodyText } from "../text/TextStyles";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 import { useLocalUsers } from "../../hooks/useLocalUsers";
 

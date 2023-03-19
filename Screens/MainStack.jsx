@@ -5,8 +5,6 @@ import { UserContext } from "../contexts/UserProvider";
 
 import OnboardingStack from "./OnboardingStack";
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import MainTabs from "./MainTabs";
 
 import { NavTheme } from "../styles/theme";

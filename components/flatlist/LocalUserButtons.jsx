@@ -1,4 +1,4 @@
-import { Pressable, Modal, Button, Alert } from "react-native";
+import { Pressable } from "react-native";
 import { colors } from "../../styles/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";

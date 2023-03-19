@@ -1,21 +1,15 @@
 import { useIsFocused } from "@react-navigation/native";
-import { forwardRef, useContext, useEffect, useRef, useState } from "react";
-import { Text, View } from "react-native";
+import { useContext, useEffect, useRef, useState } from "react";
+
 import ConnectionButtons from "../../components/flatlist/ConnectionButtons";
 import LocalUsers from "../../components/LocalUsers";
 import { ScreenContainer } from "../../components/ScreenContainer";
-import { BodyText } from "../../components/text/TextStyles";
+
 import { UserContext } from "../../contexts/UserProvider";
 import { useLocalUsersConnections } from "../../hooks/useLocalUsersConnections";
-import { appFonts, colors, fontSize } from "../../styles/styles";
+
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlatListHeader } from "../../components/headers/FlatListHeader";
-
-import Ionicons from "@expo/vector-icons/Feather";
-
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useLocalUsers } from "../../hooks/useLocalUsers";
-const Tab = createMaterialTopTabNavigator();
 
 const ChatTab = ({ navigation }) => {
   const { data, refetch, setPage, fetchNextPage, hasNextPage } =
@@ -36,15 +30,27 @@ const ChatTab = ({ navigation }) => {
 
   const height = useHeaderHeight();
 
+  const activeConnections = data?.pages
+    .flat()
+    .filter(
+      (item) =>
+        item.pendingConnection.creator.hasAccepted &&
+        item.pendingConnection.recipient.hasAccepted
+    );
+
+  const numberOfIncomingRequests = activeConnections?.length;
+
   useEffect(() => {
     if (!data) return;
-    if (isFocused) {
+
+    const length = activeConnections.length;
+    if (isFocused || numberOfIncomingRequests <= 0) {
       return navigation.setOptions({ tabBarBadge: null });
     }
     if (previousData.current !== data) {
-      const length = data.pages.flat().length;
-
-      navigation.setOptions({ tabBarBadge: length >= 10 ? "10+" : length });
+      navigation.setOptions({
+        tabBarBadge: length >= 10 ? "10+" : numberOfIncomingRequests,
+      });
       previousData.current = data;
       return;
     }
@@ -54,22 +60,12 @@ const ChatTab = ({ navigation }) => {
     return null;
   }
 
-  const activeConnections = data.pages
-    .flat()
-    .filter(
-      (item) =>
-        item.pendingConnection.creator.hasAccepted &&
-        item.pendingConnection.recipient.hasAccepted
-    );
-
   const ActiveConnections = () => {
     return (
       <LocalUsers
-        ListHeader={
-          <FlatListHeader title="Connections" body="Tap user to end session" />
-        }
+        ListHeader={<FlatListHeader title="Inbox" body="Tap user to chat" />}
         data={activeConnections}
-        refetch={refetch}
+        refetch={manualRefetch}
         isRefetching={isRefetching}
         setPage={setPage}
         fetchNextPage={fetchNextPage}

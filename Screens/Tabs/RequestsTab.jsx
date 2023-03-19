@@ -1,27 +1,38 @@
 import { useIsFocused } from "@react-navigation/native";
-import { forwardRef, useContext, useEffect, useRef, useState } from "react";
-import { Text, View } from "react-native";
+import { useContext, useEffect, useRef, useState } from "react";
+
 import ConnectionButtons from "../../components/flatlist/ConnectionButtons";
 import LocalUsers from "../../components/LocalUsers";
 import { ScreenContainer } from "../../components/ScreenContainer";
-import { BodyText } from "../../components/text/TextStyles";
+
 import { UserContext } from "../../contexts/UserProvider";
 import { useLocalUsersConnections } from "../../hooks/useLocalUsersConnections";
-import { appFonts, colors, fontSize } from "../../styles/styles";
-import { useHeaderHeight } from "@react-navigation/elements";
+import { colors } from "../../styles/styles";
+
 import { FlatListHeader } from "../../components/headers/FlatListHeader";
 
-import Ionicons from "@expo/vector-icons/Feather";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useLocalUsers } from "../../hooks/useLocalUsers";
+
+import TabBarBadge from "../../components/tabBar/TabBarBadge";
 const Tab = createMaterialTopTabNavigator();
 
 const RequestsTab = ({ navigation }) => {
   const { data, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsersConnections();
-
+  const user = useContext(UserContext);
   const [isRefetching, setIsRefetching] = useState(false);
+
+  const previousData = useRef(null);
+  const isFocused = useIsFocused();
+  const sentRequests = data?.pages
+    .flat()
+    .filter((item) => item.pendingConnection.creator.user === user._id);
+
+  const recievedRequests = data?.pages
+    .flat()
+    .filter((item) => item.pendingConnection.recipient.user === user._id);
 
   const manualRefetch = async () => {
     setIsRefetching(true);
@@ -29,21 +40,13 @@ const RequestsTab = ({ navigation }) => {
     setIsRefetching(false);
   };
 
-  const user = useContext(UserContext);
-
-  const previousData = useRef(null);
-  const isFocused = useIsFocused();
-
-  const height = useHeaderHeight();
-
   useEffect(() => {
     if (!data) return;
-    if (isFocused) {
+    const length = recievedRequests.length;
+    if (isFocused || length <= 0) {
       return navigation.setOptions({ tabBarBadge: null });
     }
     if (previousData.current !== data) {
-      const length = data.pages.flat().length;
-
       navigation.setOptions({ tabBarBadge: length >= 10 ? "10+" : length });
       previousData.current = data;
       return;
@@ -54,32 +57,13 @@ const RequestsTab = ({ navigation }) => {
     return null;
   }
 
-  const sentRequests = data.pages
-    .flat()
-    .filter((item) => item.pendingConnection.creator.user === user._id);
-
-  const recievedRequests = data.pages
-    .flat()
-    .filter((item) => item.pendingConnection.recipient.user === user._id);
-
-  const activeConnections = data.pages
-    .flat()
-    .filter(
-      (item) =>
-        item.pendingConnection.creator.hasAccepted &&
-        item.pendingConnection.recipient.hasAccepted
-    );
-
-  // break up into 2 parts.
-
-  // active connections will be a new bab, replacing the 3rd one.
   const SentRequests = () => {
     return (
       <LocalUsers
         ListHeader={
           <FlatListHeader
-            title="Sent Requests"
-            body="Tap user to send chat request"
+            title="Sent Invites"
+            body="Tap user to cancel chat request"
           />
         }
         data={sentRequests}
@@ -100,8 +84,8 @@ const RequestsTab = ({ navigation }) => {
       <LocalUsers
         ListHeader={
           <FlatListHeader
-            title="Incoming Requests"
-            body="Tap user to accept or cancel chat request"
+            title="Chat Invites"
+            body="Tap user to accept or deny chat request"
           />
         }
         data={recievedRequests}
@@ -125,20 +109,24 @@ const RequestsTab = ({ navigation }) => {
         }}
       >
         <Tab.Screen
+          name="Recieved"
+          options={{
+            tabBarIcon: () => (
+              <Ionicons name="person-add" color="white" size={20} />
+            ),
+            tabBarShowLabel: false,
+            tabBarBadge: () => <TabBarBadge count={recievedRequests.length} />,
+          }}
+          component={RecievedRequests}
+        />
+        <Tab.Screen
           name="Sent"
           options={{
             tabBarIcon: () => <Ionicons name="send" color="white" size={20} />,
             tabBarShowLabel: false,
+            tabBarBadge: () => <TabBarBadge count={sentRequests.length} />,
           }}
           component={SentRequests}
-        />
-        <Tab.Screen
-          name="Recieved"
-          options={{
-            tabBarIcon: () => <Ionicons name="inbox" color="white" size={20} />,
-            tabBarShowLabel: false,
-          }}
-          component={RecievedRequests}
         />
       </Tab.Navigator>
     </ScreenContainer>

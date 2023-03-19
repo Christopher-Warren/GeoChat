@@ -6,7 +6,6 @@ import {
   Image,
   Pressable,
   Animated,
-  refetch,
 } from "react-native";
 import {
   appFonts,
@@ -14,9 +13,7 @@ import {
   colors,
   fontSize,
   getAvatarUri,
-  iconSize,
 } from "../../styles/styles";
-import { BodyText } from "../text/TextStyles";
 
 export const RenderLocalUsers = ({
   item,

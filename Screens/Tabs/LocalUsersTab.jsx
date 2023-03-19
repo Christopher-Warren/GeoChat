@@ -1,29 +1,20 @@
-import { useIsFocused, useRoute } from "@react-navigation/native";
-import { useContext, useEffect, useRef, forwardRef, useState } from "react";
-import { View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import { useContext, useEffect, useRef, useState } from "react";
+
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import LocalUserButtons from "../../components/flatlist/LocalUserButtons";
 
 import LocalUsers from "../../components/LocalUsers";
-import { BodyText } from "../../components/text/TextStyles";
+
 import { UserContext } from "../../contexts/UserProvider";
 import { useLocalUsers } from "../../hooks/useLocalUsers";
 import { useLocation } from "../../hooks/useLocation";
 
 import { ScreenContainer } from "../../components/ScreenContainer";
 
-import { appFonts, colors, fontSize } from "../../styles/styles";
 import { FlatListHeader } from "../../components/headers/FlatListHeader";
-{
-  /* <Button
-            color={colors.primaryBackground}
-            title="Clear storage"
-            onPress={async () => {
-              AsyncStorage.clear();
-            }}
-          /> */
-}
+
 const LocalUsersTab = ({ navigation, route }) => {
   const user = useContext(UserContext);
   const location = useLocation();
@@ -46,21 +37,11 @@ const LocalUsersTab = ({ navigation, route }) => {
 
   useEffect(() => {
     if (!data) return;
-    if (isFocused) {
+    const length = data.pages.flat().length;
+    if (isFocused || length <= 0) {
       return navigation.setOptions({ tabBarBadge: null });
     }
     if (previousData.current !== data) {
-      // can optionally compare, and update new data after clearing
-
-      // e.g. X new people are near
-
-      // will currently only render 10 items at a time
-      // can potentially add meta data to endpoint stating total #
-
-      // can also save state or local storage and compare with that value
-      // which prevents new items from showing after restarting app
-      const length = data.pages.flat().length;
-
       navigation.setOptions({ tabBarBadge: length >= 10 ? "10+" : length });
       previousData.current = data;
       return;

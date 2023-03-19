@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { Text, FlatList, Button, View, RefreshControl } from "react-native";
+import { Text, FlatList, RefreshControl } from "react-native";
 
-import { appFonts, colors, fontSize, layout } from "../styles/styles";
+import { colors } from "../styles/styles";
 import { RenderLocalUsers } from "./flatlist/RenderLocalUsers";
-import { ScreenContainer } from "./ScreenContainer";
-import { BodyText } from "./text/TextStyles";
 
 import { useHeaderHeight } from "@react-navigation/elements";
 
@@ -27,6 +25,35 @@ const LocalUsers = ({
   const height = useHeaderHeight();
 
   const route = useRoute();
+  const routeName = route.name;
+
+  const ListFooterComponent = () => {
+    let message = "def";
+
+    if (routeName === "LocalUsersTab" && data.length === 0) {
+      message = "No users found in your area";
+    } else {
+      message = "No more users found in your area";
+    }
+
+    if (routeName === "Sent" && data.length === 0) {
+      message = "No invites sent";
+    }
+
+    if (routeName === "Recieved" && data.length === 0) {
+      message = "No invites recieved";
+    }
+
+    if (routeName === "ChatTab" && data.length === 0) {
+      message = "No chat sessions have started";
+    }
+
+    return (
+      <Text style={{ color: colors.secondaryText, textAlign: "center" }}>
+        {message}
+      </Text>
+    );
+  };
 
   const renderItem = ({ item }) => {
     const connected =
@@ -88,13 +115,7 @@ const LocalUsers = ({
         if (!hasNextPage) return;
         fetchNextPage();
       }}
-      ListFooterComponent={
-        !hasNextPage && (
-          <Text style={{ color: colors.secondaryText, textAlign: "center" }}>
-            No more users found
-          </Text>
-        )
-      }
+      ListFooterComponent={!hasNextPage && ListFooterComponent}
     />
   );
 };

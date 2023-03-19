@@ -1,30 +1,14 @@
-import {
-  Pressable,
-  Text,
-  View,
-  StyleSheet,
-  Animated,
-  Button,
-} from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { appFonts, borderRadius, colors, fontSize } from "../../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
-import { RenderLocalUsers } from "../../components/flatlist/RenderLocalUsers";
+
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { AnimatedButton } from "../../components/animated/AnimatedButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth } from "firebase/auth/react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
-
-import { useLocation } from "../../hooks/useLocation";
-
-import {
-  ALERT_TYPE,
-  Dialog,
-  AlertNotificationRoot,
-  Toast,
-} from "react-native-alert-notification";
 
 const HomeTab = () => {
   const user = getAuth();
