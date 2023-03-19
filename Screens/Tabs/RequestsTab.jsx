@@ -17,7 +17,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useLocalUsers } from "../../hooks/useLocalUsers";
 const Tab = createMaterialTopTabNavigator();
 
-const ConnectionsTab = ({ navigation }) => {
+const RequestsTab = ({ navigation }) => {
   const { data, refetch, setPage, fetchNextPage, hasNextPage } =
     useLocalUsersConnections();
 
@@ -70,6 +70,9 @@ const ConnectionsTab = ({ navigation }) => {
         item.pendingConnection.recipient.hasAccepted
     );
 
+  // break up into 2 parts.
+
+  // active connections will be a new bab, replacing the 3rd one.
   const SentRequests = () => {
     return (
       <LocalUsers
@@ -114,25 +117,6 @@ const ConnectionsTab = ({ navigation }) => {
     );
   };
 
-  const ActiveConnections = () => {
-    return (
-      <LocalUsers
-        ListHeader={
-          <FlatListHeader title="Connections" body="Tap user to end session" />
-        }
-        data={activeConnections}
-        refetch={refetch}
-        isRefetching={isRefetching}
-        setPage={setPage}
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-        userId={user._id}
-        RightComponent={ConnectionButtons}
-        navigation={navigation}
-      />
-    );
-  };
-
   return (
     <ScreenContainer paddingTopEnabled flexEnabled>
       <Tab.Navigator
@@ -156,18 +140,8 @@ const ConnectionsTab = ({ navigation }) => {
           }}
           component={RecievedRequests}
         />
-        <Tab.Screen
-          name="Active"
-          options={{
-            tabBarIcon: () => (
-              <Ionicons name="activity" color="white" size={20} />
-            ),
-            tabBarShowLabel: false,
-          }}
-          component={ActiveConnections}
-        />
       </Tab.Navigator>
     </ScreenContainer>
   );
 };
-export default ConnectionsTab;
+export default RequestsTab;

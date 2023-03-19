@@ -1,28 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
-import { View } from "react-native";
 
 import { UserContext } from "../contexts/UserProvider";
 
-import { colors, fontSize } from "../styles/styles";
 import OnboardingStack from "./OnboardingStack";
 
-import Ionicons from "@expo/vector-icons/Ionicons";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LocalUsersTab from "./Tabs/LocalUsersTab";
-import UserHeader from "../components/headers/UserHeader";
-import HomeTab from "./Tabs/HomeTab";
-import ConnectionsTab from "./Tabs/ConnectionsTab";
-import HomeScreen from "./HomeScreen";
+
+import MainTabs from "./MainTabs";
 
 import { NavTheme } from "../styles/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ConversationScreen from "./Tabs/ConversationScreen";
 
-const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const MainScreen = (props) => {
+const MainStack = (props) => {
   const user = useContext(UserContext);
 
   if (!user) {
@@ -33,9 +25,9 @@ const MainScreen = (props) => {
     <NavigationContainer theme={NavTheme} independent>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name="MainTabs"
           options={{ headerShown: false }}
-          component={HomeScreen}
+          component={MainTabs}
         />
         <Stack.Screen
           options={{ animation: "none" }}
@@ -47,4 +39,4 @@ const MainScreen = (props) => {
   );
 };
 
-export default MainScreen;
+export default MainStack;

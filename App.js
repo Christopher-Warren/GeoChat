@@ -1,5 +1,5 @@
 import firebaseInit from "./firebaseInit";
-import MainScreen from "./Screens/MainScreen";
+import MainStack from "./Screens/MainStack";
 import axios from "axios";
 import { UserProvider } from "./contexts/UserProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -64,7 +64,7 @@ export default function App() {
           >
             <StatusBar backgroundColor={colors.themeBackground} style="light" />
 
-            <MainScreen />
+            <MainStack />
           </AlertNotificationRoot>
         </SafeAreaProvider>
       </UserProvider>

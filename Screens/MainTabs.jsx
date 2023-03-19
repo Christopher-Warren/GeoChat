@@ -1,33 +1,18 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { useContext } from "react";
-import { View } from "react-native";
-
-import { UserContext } from "../contexts/UserProvider";
-
 import { colors, fontSize } from "../styles/styles";
-import OnboardingStack from "./OnboardingStack";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LocalUsersTab from "./Tabs/LocalUsersTab";
 import UserHeader from "../components/headers/UserHeader";
-import HomeTab from "./Tabs/HomeTab";
-import ConnectionsTab from "./Tabs/ConnectionsTab";
+import RequestsTab from "./Tabs/RequestsTab";
+import ChatTab from "./Tabs/ChatTab";
 
-import { NavTheme } from "../styles/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useLocation } from "../hooks/useLocation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const HomeScreen = (props) => {
-  const user = useContext(UserContext);
-
-  if (!user) {
-    return <OnboardingStack />;
-  }
-
+const MainTabs = (props) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -58,7 +43,8 @@ const HomeScreen = (props) => {
         },
       })}
     >
-      <Tab.Screen name="HomeTab" component={HomeTab} />
+      <Tab.Screen name="HomeTab" component={LocalUsersTab} />
+      {/* // Becomes request/sent tabs */}
       <Tab.Screen
         name="UsersNearby"
         options={{
@@ -69,7 +55,7 @@ const HomeScreen = (props) => {
             marginTop: 3,
           },
         }}
-        component={LocalUsersTab}
+        component={RequestsTab}
       />
       <Tab.Screen
         name="Connections"
@@ -82,10 +68,10 @@ const HomeScreen = (props) => {
             marginTop: 3,
           },
         }}
-        component={ConnectionsTab}
+        component={ChatTab}
       />
     </Tab.Navigator>
   );
 };
 
-export default HomeScreen;
+export default MainTabs;
