@@ -2,9 +2,8 @@
   "expo": {
     "name": "Anonychat",
     "slug": "anony-chat",
-    "version": "1.1.1",
+    "version": "1.2.1",
     "orientation": "portrait",
-    // "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#0a0a0a",
@@ -22,7 +21,7 @@
       "bundleIdentifier": "com.almith.anonychat"
     },
     "android": {
-      "versionCode": 11,
+      "versionCode": 12,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -31,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e3d29f8d-2d2c-4c0c-ad3e-66b202cbc028"
+      }
     }
   }
 }

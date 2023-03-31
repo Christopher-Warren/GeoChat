@@ -66,7 +66,8 @@ const LocalUsers = ({
       <RenderLocalUsers
         item={item}
         onPress={() => {
-          if (route.name === "Active" && connected) {
+          console.log(route.name);
+          if (route.name === "ChatTab" && connected) {
             // navigate to conversation
             // connectionId
 
