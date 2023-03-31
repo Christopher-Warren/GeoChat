@@ -26,13 +26,33 @@ const RequestsTab = ({ navigation }) => {
 
   const previousData = useRef(null);
   const isFocused = useIsFocused();
-  const sentRequests = data?.pages
-    .flat()
-    .filter((item) => item.pendingConnection.creator.user === user._id);
 
-  const recievedRequests = data?.pages
-    .flat()
-    .filter((item) => item.pendingConnection.recipient.user === user._id);
+  // Needs own route on backend to share connected status
+  const sentRequests = data?.pages.flat().filter((item) => {
+    const pendingConnection = item.pendingConnection;
+
+    if (
+      pendingConnection.recipient.hasAccepted &&
+      pendingConnection.creator.hasAccepted
+    ) {
+      return;
+    }
+    return item.pendingConnection.creator.user === user._id;
+  });
+
+  // Needs own route on backend to share connected status
+
+  const recievedRequests = data?.pages.flat().filter((item) => {
+    const pendingConnection = item.pendingConnection;
+
+    if (
+      pendingConnection.recipient.hasAccepted &&
+      pendingConnection.creator.hasAccepted
+    ) {
+      return;
+    }
+    return item.pendingConnection.recipient.user === user._id;
+  });
 
   const manualRefetch = async () => {
     setIsRefetching(true);

@@ -18,6 +18,7 @@ import {
 export const RenderLocalUsers = ({
   item,
   onPress,
+  onLongPress,
   selectedId,
   userId,
   RightComponent,
@@ -70,6 +71,7 @@ export const RenderLocalUsers = ({
       onPress={onPress}
       onPressIn={fadeIn}
       onPressOut={fadeOut}
+      onLongPress={onLongPress}
     >
       <Animated.View
         style={[

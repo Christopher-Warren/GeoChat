@@ -28,7 +28,7 @@ const LocalUsers = ({
   const routeName = route.name;
 
   const ListFooterComponent = () => {
-    let message = "def";
+    let message = "";
 
     if (routeName === "LocalUsersTab" && data.length === 0) {
       message = "No users found in your area";
@@ -65,8 +65,14 @@ const LocalUsers = ({
     return (
       <RenderLocalUsers
         item={item}
+        onLongPress={(e) => {
+          if (selectedId === item._id) {
+            setSelectedId(null);
+            return;
+          }
+          setSelectedId(item._id);
+        }}
         onPress={() => {
-          console.log(route.name);
           if (route.name === "ChatTab" && connected) {
             // navigate to conversation
             // connectionId
